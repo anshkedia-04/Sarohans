@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarohans — The Royal Edit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Serif+Display:ital@0;1&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --near-black: #0f0f0f;
+  --dark: #141414;
+  --dark2: #1c1c1c;
+  --gold: #d4a843;
+  --gold2: #e8c46a;
+  --gold3: #f5e0a0;
+  --gold-dim: rgba(212,168,67,0.15);
+  --gold-glow: rgba(212,168,67,0.35);
+  --white: #f8f4ee;
+  --off-white: #ede8e0;
+  --muted: rgba(248,244,238,0.45);
+  --accent-red: #8b2020;
+  --accent-teal: #1a4a48;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR */
+#cur { position: fixed; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s, background .2s; }
+#cur-ring { position: fixed; width: 40px; height: 40px; border: 1px solid var(--gold); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: .5; transition: opacity .3s; }
+body:has(a:hover) #cur, body:has(button:hover) #cur { width: 40px; height: 40px; background: var(--gold-dim); }
+body:has(a:hover) #cur-ring, body:has(button:hover) #cur-ring { opacity: 0; }
+
+/* MUGHAL GEOMETRIC SVG PATTERN */
+.mughal-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4a843' stroke-width='0.5'%3E%3Cpolygon points='40,5 55,20 75,20 75,40 55,60 40,75 25,60 5,40 5,20 25,20'/%3E%3Ccircle cx='40' cy='40' r='15'/%3E%3Cline x1='40' y1='5' x2='40' y2='75'/%3E%3Cline x1='5' y1='40' x2='75' y2='40'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 72px;
+  background: rgba(8,8,8,0); backdrop-filter: blur(0);
+  border-bottom: 1px solid transparent;
+  transition: all .5s ease;
+}
+nav.stuck {
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom-color: rgba(212,168,67,0.12);
+}
+.nav-brand {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+  text-decoration: none;
+}
+.nav-brand-main {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem; font-weight: 700;
+  color: var(--white); letter-spacing: 0.25em;
+  line-height: 1;
+}
+.nav-brand-main span { color: var(--gold); }
+.nav-brand-sub {
+  font-size: 0.48rem; letter-spacing: 0.55em;
+  color: var(--gold); text-transform: uppercase;
+  line-height: 1; margin-top: 3px;
+}
+.nav-center { display: flex; gap: 2.5rem; list-style: none; }
+.nav-center a {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .3s; position: relative;
+}
+.nav-center a::before {
+  content: ''; position: absolute; bottom: -4px; left: 50%; right: 50%;
+  height: 1px; background: var(--gold);
+  transition: left .3s, right .3s;
+}
+.nav-center a:hover { color: var(--gold); }
+.nav-center a:hover::before { left: 0; right: 0; }
+.nav-right { display: flex; gap: 1rem; align-items: center; }
+.nav-btn {
+  background: none; border: 1px solid rgba(212,168,67,0.25); color: var(--muted);
+  padding: .45rem 1.1rem; font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem; letter-spacing: .2em; text-transform: uppercase;
+  cursor: none; transition: all .3s; text-decoration: none; display: inline-block;
+}
+.nav-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.nav-icon { background: none; border: none; color: var(--muted); font-size: 1rem; cursor: none; transition: color .3s; }
+.nav-icon:hover { color: var(--gold); }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+  background: var(--black);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1600&auto=format&fit=crop&q=80') center/cover;
+  transform: scale(1.05);
+  animation: heroZoom 12s ease-out forwards;
+}
+@keyframes heroZoom { to { transform: scale(1); } }
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(8,8,8,0.92) 45%, rgba(8,8,8,0.3) 100%),
+              linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 60%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 5rem 7rem;
+  max-width: 720px;
+}
+.hero-kicker {
+  display: flex; align-items: center; gap: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0; animation: slideRight .8s .4s forwards;
+}
+.hero-kicker-line { width: 50px; height: 1px; background: var(--gold); }
+.hero-kicker-text {
+  font-size: .62rem; letter-spacing: .4em; text-transform: uppercase; color: var(--gold);
+}
+.hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 7vw, 7.5rem);
+  font-weight: 900; line-height: .95;
+  color: var(--white); margin-bottom: 1.5rem;
+  opacity: 0; animation: slideUp 1s .6s forwards;
+}
+.hero-h1 .italic { font-style: italic; color: var(--gold); display: block; }
+.hero-h1 .outline {
+  -webkit-text-stroke: 1.5px var(--white);
+  color: transparent; display: block;
+}
+.hero-divider {
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  opacity: 0; animation: slideUp .8s .8s forwards;
+}
+.hero-divider-line { flex: 1; max-width: 80px; height: 1px; background: linear-gradient(to right, var(--gold), transparent); }
+.hero-divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+.hero-sub {
+  font-size: .9rem; font-weight: 300; line-height: 1.9;
+  color: rgba(248,244,238,.6); max-width: 420px; margin-bottom: 3rem;
+  opacity: 0; animation: slideUp .8s 1s forwards;
+}
+.hero-actions {
+  display: flex; gap: 1rem; align-items: center;
+  opacity: 0; animation: slideUp .8s 1.2s forwards;
+}
+.btn-royal {
+  background: var(--gold); color: var(--black);
+  padding: .85rem 2.4rem; text-decoration: none;
+  font-size: .72rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase;
+  transition: all .35s; display: inline-block; cursor: none;
+  font-family: 'Outfit', sans-serif; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.btn-royal:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 12px 40px var(--gold-glow); }
+.btn-ghost {
+  background: transparent; color: var(--white);
+  padding: .85rem 2.4rem; text-decoration: none;
+  font-size: .72rem; font-weight: 400; letter-spacing: .25em; text-transform: uppercase;
+  border: 1px solid rgba(248,244,238,.25);
+  transition: all .35s; display: inline-block; cursor: none;
+  font-family: 'Outfit', sans-serif;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.hero-scroll {
+  position: absolute; right: 4rem; bottom: 4rem; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: .8rem;
+  opacity: 0; animation: fadeIn 1s 1.8s forwards;
+}
+.hero-scroll-text { font-size: .55rem; letter-spacing: .35em; text-transform: uppercase; color: var(--muted); writing-mode: vertical-rl; }
+.hero-scroll-bar { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: .4; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(.6); } }
+.hero-corner-ornament {
+  position: absolute; top: 5rem; right: 3rem; z-index: 2;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: .78rem; color: rgba(212,168,67,.5);
+  letter-spacing: .2em; writing-mode: vertical-rl;
+  opacity: 0; animation: fadeIn 1s 1.5s forwards;
+}
+
+/* TICKER */
+.ticker {
+  background: var(--gold); padding: .7rem 0; overflow: hidden;
+  position: relative; z-index: 10;
+}
+.ticker::before, .ticker::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2;
+  pointer-events: none;
+}
+.ticker::before { left: 0; background: linear-gradient(to right, var(--gold), transparent); }
+.ticker::after { right: 0; background: linear-gradient(to left, var(--gold), transparent); }
+.ticker-inner {
+  display: flex; white-space: nowrap;
+  animation: ticker 25s linear infinite;
+}
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 1.5rem;
+  padding: 0 2rem;
+  font-size: .65rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--black);
+}
+.ticker-sep { font-size: .8rem; opacity: .5; }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* SECTION BASICS */
+section { position: relative; overflow: hidden; }
+.s-label {
+  font-size: .58rem; letter-spacing: .5em; text-transform: uppercase;
+  color: var(--gold); display: flex; align-items: center; gap: 1rem; margin-bottom: .8rem;
+}
+.s-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.s-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 700; line-height: 1.05;
+  color: var(--white);
+}
+.s-title em { font-style: italic; color: var(--gold); }
+
+/* COLLECTIONS */
+#collections {
+  background: var(--near-black);
+  padding: 8rem 3rem;
+}
+#collections .mughal-pattern { opacity: .025; }
+.coll-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  max-width: 1400px; margin: 0 auto 4rem;
+}
+.coll-header-right {
+  font-size: .8rem; color: var(--muted); max-width: 280px; line-height: 1.8;
+  text-align: right;
+}
+.coll-grid {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 340px 340px; gap: 3px;
+}
+.coll-card {
+  position: relative; overflow: hidden; cursor: none;
+}
+.coll-card:first-child { grid-row: span 2; }
+.coll-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.6) contrast(1.1) saturate(.85);
+  transition: transform .8s cubic-bezier(.16,1,.3,1), filter .6s;
+}
+.coll-card:hover img { transform: scale(1.08); filter: brightness(.5) saturate(1.1); }
+.coll-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(8,8,8,.6) 0%, transparent 50%),
+              linear-gradient(to top, rgba(8,8,8,.85) 0%, transparent 55%);
+}
+.coll-border {
+  position: absolute; inset: 12px;
+  border: 1px solid rgba(212,168,67,0);
+  transition: border-color .4s;
+  pointer-events: none;
+}
+.coll-card:hover .coll-border { border-color: rgba(212,168,67,.35); }
+.coll-info {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 2.5rem;
+}
+.coll-num {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: .75rem; color: var(--gold); letter-spacing: .15em; margin-bottom: .3rem;
+}
+.coll-name {
+  font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700;
+  color: var(--white); line-height: 1.05; margin-bottom: .8rem;
+}
+.coll-card:first-child .coll-name { font-size: 3rem; }
+.coll-cta {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .65rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .35s, transform .35s;
+}
+.coll-card:hover .coll-cta { opacity: 1; transform: translateY(0); }
+.coll-cta-arrow { font-size: 1rem; transition: transform .2s; }
+.coll-cta:hover .coll-cta-arrow { transform: translateX(4px); }
+
+/* FEATURED PRODUCTS */
+#featured {
+  background: var(--dark);
+  padding: 8rem 3rem;
+}
+.feat-header {
+  max-width: 1400px; margin: 0 auto 5rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+.feat-view-all {
+  font-size: .68rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212,168,67,.3);
+  padding-bottom: .3rem; transition: border-color .3s;
+}
+.feat-view-all:hover { border-color: var(--gold); }
+.prod-grid {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px;
+}
+.prod-card { position: relative; cursor: none; background: var(--dark2); }
+.prod-img { aspect-ratio: 2/3; overflow: hidden; position: relative; }
+.prod-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.8) contrast(1.05);
+  transition: transform .7s cubic-bezier(.16,1,.3,1), filter .5s;
+}
+.prod-card:hover .prod-img img { transform: scale(1.06); filter: brightness(.7); }
+.prod-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  background: var(--gold); color: var(--black);
+  font-size: .55rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  padding: .3rem .8rem;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+.prod-wish {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 34px; height: 34px; background: rgba(8,8,8,.7); border: none;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--white); font-size: .85rem; cursor: none;
+  opacity: 0; transition: opacity .3s, background .2s; backdrop-filter: blur(4px);
+}
+.prod-card:hover .prod-wish { opacity: 1; }
+.prod-wish:hover { background: var(--gold); color: var(--black); }
+.prod-actions {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; flex-direction: column; gap: 1px;
+  transform: translateY(100%); transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.prod-card:hover .prod-actions { transform: translateY(0); }
+.prod-action-btn {
+  background: rgba(8,8,8,.92); backdrop-filter: blur(8px);
+  border: none; color: var(--off-white);
+  padding: .75rem; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
+  cursor: none; transition: background .2s, color .2s;
+  font-family: 'Outfit', sans-serif; border-top: 1px solid rgba(212,168,67,.1);
+}
+.prod-action-btn:hover { background: var(--gold); color: var(--black); }
+.prod-body { padding: 1.5rem 1.5rem 2rem; }
+.prod-type { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
+.prod-name {
+  font-family: 'DM Serif Display', serif; font-size: 1.1rem;
+  color: var(--white); margin-bottom: .7rem; line-height: 1.2;
+}
+.prod-price-row { display: flex; align-items: center; justify-content: space-between; }
+.prod-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--gold); font-weight: 700; }
+.prod-price-old { font-size: .8rem; color: var(--muted); text-decoration: line-through; }
+
+/* RAJPUTI EDITORIAL */
+#rajputi {
+  background: var(--black);
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.rajputi-visual {
+  position: relative; overflow: hidden;
+}
+.rajputi-visual img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.7) contrast(1.1) saturate(.8);
+}
+.rajputi-visual::before {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to right, transparent 60%, var(--black));
+}
+.rajputi-visual-number {
+  position: absolute; bottom: 3rem; left: 3rem; z-index: 2;
+  font-family: 'Playfair Display', serif; font-size: 8rem; font-weight: 900;
+  color: rgba(212,168,67,.08); line-height: 1; pointer-events: none;
+  letter-spacing: -.02em;
+}
+.rajputi-text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 7rem 5rem 7rem 4rem;
+  position: relative;
+}
+.rajputi-text .mughal-pattern { opacity: .03; }
+.rajputi-quote {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1rem; color: var(--gold); line-height: 1.7;
+  margin-bottom: 3rem; padding-left: 1.5rem;
+  border-left: 2px solid var(--gold);
+}
+.rajputi-h2 {
+  font-family: 'Playfair Display', serif; font-size: clamp(2.5rem,4vw,4.5rem);
+  font-weight: 900; line-height: 1; margin-bottom: 1.5rem;
+  color: var(--white);
+}
+.rajputi-h2 span { display: block; font-style: italic; color: var(--gold); font-size: .6em; letter-spacing: .05em; margin-bottom: .5rem; }
+.rajputi-p { font-size: .88rem; font-weight: 300; line-height: 1.9; color: rgba(248,244,238,.6); max-width: 400px; margin-bottom: 2.5rem; }
+.feat-list {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .8rem 2rem; margin-bottom: 3rem;
+}
+.feat-item { display: flex; align-items: center; gap: .8rem; font-size: .75rem; color: rgba(248,244,238,.7); }
+.feat-item::before { content: '◆'; color: var(--gold); font-size: .5rem; flex-shrink: 0; }
+
+/* CRAFTS - ACCORDION STYLE */
+#crafts {
+  background: var(--near-black);
+  padding: 8rem 3rem;
+}
+.crafts-header { max-width: 1400px; margin: 0 auto 4rem; }
+.crafts-accordion {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; height: 500px; gap: 2px;
+}
+.craft-panel {
+  flex: 1; position: relative; overflow: hidden; cursor: none;
+  transition: flex .6s cubic-bezier(.16,1,.3,1);
+}
+.craft-panel:hover { flex: 4; }
+.craft-panel img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.45) saturate(.7) contrast(1.1);
+  transition: filter .6s;
+}
+.craft-panel:hover img { filter: brightness(.6) saturate(1); }
+.craft-panel-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,.9) 0%, transparent 60%);
+}
+.craft-panel-content {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem;
+}
+.craft-num { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.5rem; font-weight: 700; color: rgba(212,168,67,.2); line-height: 1; }
+.craft-name {
+  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
+  color: var(--white); writing-mode: vertical-rl; text-orientation: mixed;
+  transform: rotate(180deg); transition: all .5s;
+  white-space: nowrap;
+}
+.craft-panel:hover .craft-name { writing-mode: horizontal-tb; transform: rotate(0); font-size: 2rem; }
+.craft-panel-desc {
+  font-size: .78rem; color: rgba(248,244,238,.65); line-height: 1.7;
+  max-height: 0; overflow: hidden; transition: max-height .5s, margin .4s;
+}
+.craft-panel:hover .craft-panel-desc { max-height: 100px; margin-top: .8rem; }
+.craft-panel-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold);
+  transform: scaleX(0); transition: transform .4s;
+}
+.craft-panel:hover .craft-panel-line { transform: scaleX(1); }
+
+/* OCCASIONS */
+#occasions {
+  background: var(--dark);
+  padding: 8rem 3rem;
+}
+.occ-grid {
+  max-width: 1400px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+}
+.occ-card { position: relative; overflow: hidden; cursor: none; aspect-ratio: .75; }
+.occ-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.55) saturate(.8);
+  transition: transform .7s cubic-bezier(.16,1,.3,1), filter .5s;
+}
+.occ-card:hover img { transform: scale(1.06); filter: brightness(.45) saturate(1.1); }
+.occ-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,.95) 0%, transparent 60%);
+}
+.occ-inner {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 2rem;
+  border-top: 1px solid rgba(212,168,67,0);
+  transition: border-color .4s;
+}
+.occ-card:hover .occ-inner { border-top-color: rgba(212,168,67,.25); }
+.occ-tag { font-size: .55rem; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+.occ-name {
+  font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+  color: var(--white); line-height: 1.1; margin-bottom: .5rem;
+}
+.occ-count { font-size: .65rem; color: var(--muted); letter-spacing: .15em; }
+.occ-arrow {
+  position: absolute; top: 50%; right: 1.5rem; transform: translateY(-50%);
+  width: 36px; height: 36px; border: 1px solid rgba(212,168,67,.25);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: .8rem;
+  opacity: 0; transition: opacity .3s, border-color .3s;
+}
+.occ-card:hover .occ-arrow { opacity: 1; border-color: var(--gold); }
+
+/* SHOP THE LOOK */
+#shop-look {
+  background: var(--black);
+  padding: 8rem 3rem;
+}
+.look-wrapper { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.look-left { position: relative; }
+.look-main-img { width: 100%; aspect-ratio: .75; object-fit: cover; filter: brightness(.85); }
+.look-img-badge {
+  position: absolute; top: 2rem; right: -1.5rem;
+  background: var(--gold); color: var(--black);
+  padding: 1rem 1.2rem; text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+.look-img-badge-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; line-height: 1; }
+.look-img-badge-text { font-size: .5rem; letter-spacing: .2em; text-transform: uppercase; }
+.look-dot {
+  position: absolute; width: 24px; height: 24px;
+  background: var(--gold); border-radius: 50%; cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .55rem; font-weight: 700; color: var(--black);
+  box-shadow: 0 0 0 6px rgba(212,168,67,.2);
+  animation: dotPulse 2.5s ease infinite;
+}
+@keyframes dotPulse { 0%,100% { box-shadow: 0 0 0 6px rgba(212,168,67,.2); } 50% { box-shadow: 0 0 0 12px rgba(212,168,67,.05); } }
+.look-dot-1 { top: 18%; left: 30%; }
+.look-dot-2 { top: 44%; left: 52%; }
+.look-dot-3 { top: 72%; left: 28%; }
+
+.look-right { display: flex; flex-direction: column; gap: 0; }
+.look-right-header { margin-bottom: 3rem; }
+.look-items-list { display: flex; flex-direction: column; border-top: 1px solid rgba(212,168,67,.1); }
+.look-item-row {
+  display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(212,168,67,.1);
+  cursor: none; transition: background .2s;
+}
+.look-item-row:hover { background: rgba(212,168,67,.03); }
+.look-item-num {
+  font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+  font-size: 1.5rem; color: rgba(212,168,67,.25); width: 2rem; flex-shrink: 0;
+}
+.look-item-img { width: 60px; height: 80px; object-fit: cover; flex-shrink: 0; filter: brightness(.85); }
+.look-item-info { flex: 1; }
+.look-item-label { font-size: .58rem; letter-spacing: .25em; text-transform: uppercase; color: var(--gold); margin-bottom: .3rem; }
+.look-item-name { font-family: 'DM Serif Display', serif; font-size: .95rem; color: var(--white); margin-bottom: .2rem; }
+.look-item-price { font-size: .82rem; color: var(--muted); }
+.look-add-btn {
+  width: 32px; height: 32px; border: 1px solid rgba(212,168,67,.3);
+  background: none; color: var(--gold); font-size: 1.1rem; cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, border-color .2s;
+}
+.look-add-btn:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.look-bundle {
+  margin-top: 2rem; background: var(--gold);
+  padding: 1.5rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: none; transition: background .3s;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.look-bundle:hover { background: var(--gold2); }
+.look-bundle-label { font-size: .62rem; letter-spacing: .25em; text-transform: uppercase; color: var(--black); margin-bottom: .2rem; }
+.look-bundle-save { font-size: .7rem; color: rgba(0,0,0,.55); }
+.look-bundle-price { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--black); }
+
+/* TRUST STRIP */
+#trust {
+  background: var(--gold);
+  padding: 3.5rem 3rem;
+}
+.trust-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; }
+.trust-item {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 1.5rem; gap: .6rem; cursor: none;
+  border-right: 1px solid rgba(0,0,0,.1);
+  transition: background .3s;
+}
+.trust-item:last-child { border-right: none; }
+.trust-item:hover { background: rgba(0,0,0,.05); }
+.trust-icon { font-size: 1.8rem; }
+.trust-name { font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--black); }
+.trust-desc { font-size: .72rem; color: rgba(0,0,0,.6); line-height: 1.5; }
+
+/* BRIDAL */
+#bridal {
+  min-height: 90vh;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+}
+.bridal-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=1600&auto=format&fit=crop&q=80') center/cover;
+  filter: brightness(.25) saturate(.5) contrast(1.2);
+}
+.bridal-frame {
+  position: absolute; inset: 2rem;
+  border: 1px solid rgba(212,168,67,.2);
+  pointer-events: none;
+}
+.bridal-frame-corner {
+  position: absolute; width: 30px; height: 30px;
+  border-color: var(--gold); border-style: solid;
+}
+.bfc-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.bfc-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.bfc-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.bfc-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+.bridal-content { position: relative; z-index: 2; max-width: 700px; padding: 2rem; }
+.bridal-kicker { font-size: .6rem; letter-spacing: .5em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.bridal-kicker::before, .bridal-kicker::after { content: ''; width: 40px; height: 1px; background: var(--gold); }
+.bridal-h2 { font-family: 'Playfair Display', serif; font-size: clamp(3rem,6vw,5.5rem); font-weight: 900; line-height: .95; color: var(--white); margin-bottom: 1.5rem; }
+.bridal-h2 em { font-style: italic; color: var(--gold); }
+.bridal-p { font-size: .9rem; font-weight: 300; color: rgba(248,244,238,.65); line-height: 1.9; margin-bottom: 3rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.bridal-services {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; margin-bottom: 3.5rem;
+}
+.bs-card {
+  background: rgba(8,8,8,.75); backdrop-filter: blur(10px);
+  padding: 2rem 1.5rem; border: 1px solid rgba(212,168,67,.1);
+  transition: border-color .3s, background .3s; cursor: none;
+}
+.bs-card:hover { border-color: rgba(212,168,67,.4); background: rgba(212,168,67,.05); }
+.bs-icon { font-size: 1.8rem; margin-bottom: .8rem; display: block; }
+.bs-name { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--white); margin-bottom: .5rem; }
+.bs-desc { font-size: .72rem; color: var(--muted); line-height: 1.6; }
+
+/* TESTIMONIALS */
+#testimonials {
+  background: var(--near-black);
+  padding: 8rem 3rem;
+}
+.testi-header { max-width: 1400px; margin: 0 auto 5rem; display: flex; justify-content: space-between; align-items: flex-end; }
+.testi-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; }
+.testi-card {
+  background: var(--dark2); padding: 3rem 2.5rem;
+  position: relative; overflow: hidden;
+  transition: background .3s; cursor: none;
+}
+.testi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, var(--gold), transparent);
+}
+.testi-card:hover { background: var(--dark); }
+.testi-large-q {
+  font-family: 'Playfair Display', serif; font-size: 6rem; font-weight: 900;
+  color: rgba(212,168,67,.07); line-height: 1; position: absolute; top: 1rem; right: 2rem;
+}
+.testi-stars { color: var(--gold); font-size: .75rem; letter-spacing: .1rem; margin-bottom: 1.5rem; }
+.testi-text {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: 1rem; color: rgba(248,244,238,.85); line-height: 1.8; margin-bottom: 2rem;
+}
+.testi-author { display: flex; align-items: center; gap: 1rem; }
+.testi-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(212,168,67,.3); }
+.testi-name { font-size: .82rem; font-weight: 500; color: var(--white); }
+.testi-city { font-size: .68rem; color: var(--gold); letter-spacing: .1em; }
+
+/* UGC */
+#ugc { background: var(--dark); }
+.ugc-top { padding: 5rem 3rem 3rem; max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; }
+.ugc-handle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: var(--gold); }
+.ugc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+.ugc-item { aspect-ratio: 1; overflow: hidden; position: relative; cursor: none; }
+.ugc-item img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7) saturate(.7) contrast(1.1); transition: filter .4s, transform .6s; }
+.ugc-item:hover img { filter: brightness(.9) saturate(1); transform: scale(1.05); }
+.ugc-hover { position: absolute; inset: 0; background: rgba(212,168,67,.15); opacity: 0; display: flex; align-items: center; justify-content: center; transition: opacity .3s; border: 1px solid rgba(212,168,67,0); }
+.ugc-item:hover .ugc-hover { opacity: 1; border-color: rgba(212,168,67,.3); }
+.ugc-icon { font-size: 1.5rem; }
+
+/* NEWSLETTER */
+#newsletter {
+  background: var(--black);
+  padding: 8rem 3rem;
+  position: relative; overflow: hidden;
+}
+#newsletter .mughal-pattern { opacity: .03; }
+.nl-inner { max-width: 700px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+.nl-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,3.5rem); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: .8rem; }
+.nl-title em { font-style: italic; color: var(--gold); }
+.nl-sub { font-size: .85rem; color: var(--muted); line-height: 1.8; margin-bottom: 3rem; }
+.nl-form { display: flex; max-width: 480px; margin: 0 auto; }
+.nl-input {
+  flex: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(212,168,67,.2);
+  border-right: none; color: var(--white); padding: 1rem 1.5rem;
+  font-family: 'Outfit', sans-serif; font-size: .85rem; outline: none;
+  transition: border-color .3s;
+}
+.nl-input::placeholder { color: rgba(248,244,238,.3); }
+.nl-input:focus { border-color: var(--gold); }
+.nl-btn {
+  background: var(--gold); border: none; color: var(--black);
+  padding: 1rem 2rem; font-family: 'Outfit', sans-serif;
+  font-size: .68rem; font-weight: 600; letter-spacing: .25em; text-transform: uppercase;
+  cursor: none; transition: background .3s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.nl-btn:hover { background: var(--gold2); }
+
+/* FOOTER */
+footer {
+  background: #030303;
+  border-top: 1px solid rgba(212,168,67,.1);
+  padding: 5rem 3rem 2rem;
+}
+.footer-top { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(212,168,67,.06); margin-bottom: 2rem; }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--white); letter-spacing: .2em; margin-bottom: .5rem; display: block; }
+.footer-logo em { font-style: italic; color: var(--gold); }
+.footer-tagline { font-size: .62rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.footer-desc { font-size: .78rem; line-height: 1.9; color: var(--muted); max-width: 280px; margin-bottom: 2rem; }
+.footer-socials { display: flex; gap: .5rem; }
+.soc-btn { width: 34px; height: 34px; border: 1px solid rgba(212,168,67,.15); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; font-size: .75rem; cursor: none; transition: all .3s; }
+.soc-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-dim); }
+.f-col-title { font-size: .62rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.8rem; }
+.f-links { list-style: none; }
+.f-links li { margin-bottom: .8rem; }
+.f-links a { font-size: .78rem; color: var(--muted); text-decoration: none; cursor: none; transition: color .2s; letter-spacing: .05em; }
+.f-links a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-copy { font-size: .68rem; color: rgba(248,244,238,.2); letter-spacing: .05em; }
+.payment-tags { display: flex; gap: .5rem; }
+.pay-tag { border: 1px solid rgba(212,168,67,.12); padding: .25rem .7rem; font-size: .58rem; letter-spacing: .1em; color: rgba(248,244,238,.3); text-transform: uppercase; }
+
+/* WHATSAPP */
+.wa {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 50px; height: 50px; background: #25d366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 30px rgba(37,211,102,.4); cursor: none;
+  text-decoration: none; transition: transform .3s, box-shadow .3s;
+  animation: waPop 3s 2s ease infinite;
+}
+.wa:hover { transform: scale(1.12); box-shadow: 0 8px 40px rgba(37,211,102,.5); }
+@keyframes waPop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* REVEAL */
+.rev { opacity: 0; transform: translateY(50px); transition: opacity .9s ease, transform .9s ease; }
+.rev.on { opacity: 1; transform: none; }
+.rev-l { opacity: 0; transform: translateX(-50px); transition: opacity .9s ease, transform .9s ease; }
+.rev-l.on { opacity: 1; transform: none; }
+.rev-r { opacity: 0; transform: translateX(50px); transition: opacity .9s ease, transform .9s ease; }
+.rev-r.on { opacity: 1; transform: none; }
+
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@keyframes slideRight { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .prod-grid { grid-template-columns: repeat(2, 1fr); }
+  .testi-grid { grid-template-columns: 1fr; }
+  .ugc-grid { grid-template-columns: repeat(3, 1fr); }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .trust-grid { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-center { display: none; }
+  #hero { min-height: auto; }
+  .hero-content { padding: 6rem 2rem 4rem; }
+  #rajputi { grid-template-columns: 1fr; }
+  .rajputi-visual { height: 50vw; }
+  .rajputi-text { padding: 4rem 2rem; }
+  .look-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+  .coll-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .coll-card:first-child { grid-column: span 2; height: 400px; }
+  .coll-card { height: 280px; }
+  .occ-grid { grid-template-columns: repeat(2,1fr); }
+  .crafts-accordion { flex-wrap: wrap; height: auto; }
+  .craft-panel { flex: 0 0 calc(50% - 1px); height: 260px; }
+  #collections, #featured, #occasions, #crafts, #shop-look, #testimonials, #ugc, #newsletter, #bridal, #trust { padding: 4rem 1.5rem; }
+  .coll-header, .feat-header, .look-wrapper, .testi-header, .ugc-top, .crafts-header { max-width: 100%; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .bridal-services { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .coll-grid { grid-template-columns: 1fr; }
+  .coll-card:first-child { grid-column: span 1; }
+  .prod-grid { grid-template-columns: 1fr 1fr; }
+  .occ-grid { grid-template-columns: 1fr 1fr; }
+  .ugc-grid { grid-template-columns: repeat(2,1fr); }
+  .crafts-accordion { flex-direction: column; }
+  .craft-panel { flex: none; width: 100%; height: 220px; }
+  .hero-h1 { font-size: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <div class="nav-brand-main">SARO<span>HANS</span></div>
+    <div class="nav-brand-sub">The Royal Edit</div>
+  </a>
+  <ul class="nav-center">
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#rajputi">Rajputi</a></li>
+    <li><a href="#occasions">Occasions</a></li>
+    <li><a href="#crafts">Fabrics</a></li>
+    <li><a href="#shop-look">The Look</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-icon">🔍</button>
+    <button class="nav-icon">♡</button>
+    <a href="#bridal" class="nav-btn">Bridal</a>
+    <button class="nav-icon">🛍</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-kicker">
+      <div class="hero-kicker-line"></div>
+      <div class="hero-kicker-text">New Collection · Rajasthan 2025</div>
+    </div>
+    <h1 class="hero-h1">
+      <span class="italic">Where Royalty</span>
+      <span>Becomes</span>
+      <span class="outline">Yours</span>
+    </h1>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-diamond"></div>
+    </div>
+    <p class="hero-sub">Exquisite Rajputi Sarees and Poshaks crafted with generational artisanship. Each piece tells a story of India's royal heritage — reimagined for the modern woman.</p>
+    <div class="hero-actions">
+      <a href="#collections" class="btn-royal">Explore Collections</a>
+      <a href="#rajputi" class="btn-ghost">Rajputi Edit</a>
+    </div>
+  </div>
+  <div class="hero-corner-ornament">Handcrafted in Rajasthan</div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-bar"></div>
+    <div class="hero-scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item"><span>Rajputi Saree</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Handcrafted Poshak</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Bridal Couture</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Pure Silk Weaves</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Bandhani Art</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Party Wear Saree</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Custom Stitching</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Free Pan India Shipping</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Rajputi Saree</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Handcrafted Poshak</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Bridal Couture</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Pure Silk Weaves</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Bandhani Art</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Party Wear Saree</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Custom Stitching</span><span class="ticker-sep">✦</span></div>
+    <div class="ticker-item"><span>Free Pan India Shipping</span><span class="ticker-sep">✦</span></div>
+  </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="mughal-pattern"></div>
+  <div class="coll-header rev">
+    <div>
+      <div class="s-label">Our Collections</div>
+      <h2 class="s-title">Curated for the<br><em>Discerning Woman</em></h2>
+    </div>
+    <div class="coll-header-right">Four distinct collections. Each one a love letter to Rajasthan's royal textile tradition, reimagined for today.</div>
+  </div>
+  <div class="coll-grid rev">
+    <div class="coll-card">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80" alt="Rajputi Poshak">
+      <div class="coll-overlay"></div>
+      <div class="coll-border"></div>
+      <div class="coll-info">
+        <div class="coll-num">01 — Featured</div>
+        <div class="coll-name">Rajputi<br>Poshak</div>
+        <a href="#" class="coll-cta">Explore <span class="coll-cta-arrow">→</span></a>
+      </div>
+    </div>
+    <div class="coll-card">
+      <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=600&auto=format&fit=crop&q=80" alt="Rajputi Saree">
+      <div class="coll-overlay"></div>
+      <div class="coll-border"></div>
+      <div class="coll-info">
+        <div class="coll-num">02 — Signature</div>
+        <div class="coll-name">Rajputi<br>Saree</div>
+        <a href="#" class="coll-cta">Explore <span class="coll-cta-arrow">→</span></a>
+      </div>
+    </div>
+    <div class="coll-card">
+      <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&auto=format&fit=crop&q=80" alt="Party Wear">
+      <div class="coll-overlay"></div>
+      <div class="coll-border"></div>
+      <div class="coll-info">
+        <div class="coll-num">03 — New</div>
+        <div class="coll-name">Party<br>Wear</div>
+        <a href="#" class="coll-cta">Explore <span class="coll-cta-arrow">→</span></a>
+      </div>
+    </div>
+    <div class="coll-card">
+      <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80" alt="Ethnic Wear">
+      <div class="coll-overlay"></div>
+      <div class="coll-border"></div>
+      <div class="coll-info">
+        <div class="coll-num">04 — Premium</div>
+        <div class="coll-name">Ethnic<br>Wear</div>
+        <a href="#" class="coll-cta">Explore <span class="coll-cta-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section id="featured">
+  <div class="feat-header rev">
+    <div>
+      <div class="s-label">New Arrivals</div>
+      <h2 class="s-title">Handpicked <em>For You</em></h2>
+    </div>
+    <a href="#" class="feat-view-all">View All Pieces →</a>
+  </div>
+  <div class="prod-grid rev">
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=500&auto=format&fit=crop&q=80" alt="Saree">
+        <div class="prod-badge">Handcrafted</div>
+        <button class="prod-wish">♡</button>
+        <div class="prod-actions">
+          <button class="prod-action-btn">Quick View</button>
+          <button class="prod-action-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-type">Rajputi Saree</div>
+        <div class="prod-name">Gulabi Anarkali Saree</div>
+        <div class="prod-price-row">
+          <span class="prod-price">₹8,500</span>
+          <span class="prod-price-old">₹11,000</span>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=80" alt="Poshak">
+        <div class="prod-badge">Bestseller</div>
+        <button class="prod-wish">♡</button>
+        <div class="prod-actions">
+          <button class="prod-action-btn">Quick View</button>
+          <button class="prod-action-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-type">Rajputi Poshak</div>
+        <div class="prod-name">Royal Zari Poshak</div>
+        <div class="prod-price-row">
+          <span class="prod-price">₹24,000</span>
+          <span class="prod-price-old">₹30,000</span>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&auto=format&fit=crop&q=80" alt="Party Saree">
+        <button class="prod-wish">♡</button>
+        <div class="prod-actions">
+          <button class="prod-action-btn">Quick View</button>
+          <button class="prod-action-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-type">Party Wear Saree</div>
+        <div class="prod-name">Champagne Georgette</div>
+        <div class="prod-price-row">
+          <span class="prod-price">₹6,200</span>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500&auto=format&fit=crop&q=80" alt="Ethnic">
+        <div class="prod-badge">Pre-order</div>
+        <button class="prod-wish">♡</button>
+        <div class="prod-actions">
+          <button class="prod-action-btn">Quick View</button>
+          <button class="prod-action-btn">Pre-Order Now</button>
+        </div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-type">Premium Ethnic</div>
+        <div class="prod-name">Ivory Silk Lehenga Set</div>
+        <div class="prod-price-row">
+          <span class="prod-price">₹18,500</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAJPUTI EDITORIAL -->
+<section id="rajputi">
+  <div class="rajputi-visual rev-l">
+    <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=900&auto=format&fit=crop&q=80" alt="Rajputi">
+    <div class="rajputi-visual-number">01</div>
+  </div>
+  <div class="rajputi-text rev-r">
+    <div class="mughal-pattern"></div>
+    <div style="position:relative;z-index:1">
+      <div class="s-label">Rajputi Heritage</div>
+      <h2 class="rajputi-h2">
+        <span>The Art of</span>
+        Rajputi<br>Grace
+      </h2>
+      <div class="rajputi-quote">"Each thread carries the memory of a thousand royal courts, woven into a garment worthy of a queen."</div>
+      <p class="rajputi-p">Our dedicated Rajputi Collection celebrates the timeless elegance of Rajasthan's royal courts. Each saree and poshak is crafted by master artisans using centuries-old techniques.</p>
+      <div class="feat-list">
+        <div class="feat-item">Authentic Rajasthani Craft</div>
+        <div class="feat-item">Premium Silk Fabrics</div>
+        <div class="feat-item">Gota Patti Embroidery</div>
+        <div class="feat-item">Custom Stitching</div>
+        <div class="feat-item">Zardosi Detailing</div>
+        <div class="feat-item">360° Drape Preview</div>
+      </div>
+      <a href="#" class="btn-royal">View Full Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFTS -->
+<section id="crafts">
+  <div class="crafts-header rev">
+    <div class="s-label">Craft & Fabric</div>
+    <h2 class="s-title">Shop by <em>Weave & Art</em></h2>
+  </div>
+  <div class="crafts-accordion rev">
+    <div class="craft-panel">
+      <div class="craft-panel-line"></div>
+      <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&auto=format&fit=crop&q=80" alt="Bandhani">
+      <div class="craft-panel-overlay"></div>
+      <div class="craft-panel-content">
+        <div class="craft-num">01</div>
+        <div class="craft-name">Bandhani</div>
+        <div class="craft-panel-desc">Ancient tie-dye craft from Rajasthan. Each piece is a unique work of art with intricate patterns formed by thousands of tiny bindings.</div>
+      </div>
+    </div>
+    <div class="craft-panel">
+      <div class="craft-panel-line"></div>
+      <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=400&auto=format&fit=crop&q=80" alt="Silk">
+      <div class="craft-panel-overlay"></div>
+      <div class="craft-panel-content">
+        <div class="craft-num">02</div>
+        <div class="craft-name">Pure Silk</div>
+        <div class="craft-panel-desc">Lustrous Kanjivaram and Banarasi silk woven with gold zari threads for an unmatched regal elegance.</div>
+      </div>
+    </div>
+    <div class="craft-panel">
+      <div class="craft-panel-line"></div>
+      <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80" alt="Georgette">
+      <div class="craft-panel-overlay"></div>
+      <div class="craft-panel-content">
+        <div class="craft-num">03</div>
+        <div class="craft-name">Georgette</div>
+        <div class="craft-panel-desc">Light and flowy, perfect for evening occasions. The graceful drape of georgette flatters every silhouette.</div>
+      </div>
+    </div>
+    <div class="craft-panel">
+      <div class="craft-panel-line"></div>
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&auto=format&fit=crop&q=80" alt="Gota Patti">
+      <div class="craft-panel-overlay"></div>
+      <div class="craft-panel-content">
+        <div class="craft-num">04</div>
+        <div class="craft-name">Gota Patti</div>
+        <div class="craft-panel-desc">The royal embroidery of Rajasthan. Golden ribbons carefully applied to create stunning geometric patterns.</div>
+      </div>
+    </div>
+    <div class="craft-panel">
+      <div class="craft-panel-line"></div>
+      <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&auto=format&fit=crop&q=80" alt="Handloom">
+      <div class="craft-panel-overlay"></div>
+      <div class="craft-panel-content">
+        <div class="craft-num">05</div>
+        <div class="craft-name">Handloom</div>
+        <div class="craft-panel-desc">Sustainably woven on traditional looms by master weavers, preserving India's irreplaceable textile heritage.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<section id="occasions">
+  <div style="max-width:1400px;margin:0 auto 4rem;padding:0" class="rev">
+    <div class="s-label">Dress for Every Moment</div>
+    <h2 class="s-title">Shop by <em>Occasion</em></h2>
+  </div>
+  <div class="occ-grid rev">
+    <div class="occ-card">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=80" alt="Wedding">
+      <div class="occ-overlay"></div>
+      <div class="occ-inner">
+        <div class="occ-tag">Wedding Season</div>
+        <div class="occ-name">Wedding</div>
+        <div class="occ-count">142+ Styles Available</div>
+      </div>
+      <div class="occ-arrow">→</div>
+    </div>
+    <div class="occ-card">
+      <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500&auto=format&fit=crop&q=80" alt="Festive">
+      <div class="occ-overlay"></div>
+      <div class="occ-inner">
+        <div class="occ-tag">Festivals</div>
+        <div class="occ-name">Festive</div>
+        <div class="occ-count">98+ Styles Available</div>
+      </div>
+      <div class="occ-arrow">→</div>
+    </div>
+    <div class="occ-card">
+      <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&auto=format&fit=crop&q=80" alt="Party">
+      <div class="occ-overlay"></div>
+      <div class="occ-inner">
+        <div class="occ-tag">Evenings</div>
+        <div class="occ-name">Party Wear</div>
+        <div class="occ-count">76+ Styles Available</div>
+      </div>
+      <div class="occ-arrow">→</div>
+    </div>
+    <div class="occ-card">
+      <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=500&auto=format&fit=crop&q=80" alt="Daily">
+      <div class="occ-overlay"></div>
+      <div class="occ-inner">
+        <div class="occ-tag">Everyday</div>
+        <div class="occ-name">Daily Grace</div>
+        <div class="occ-count">54+ Styles Available</div>
+      </div>
+      <div class="occ-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP THE LOOK -->
+<section id="shop-look">
+  <div class="look-wrapper">
+    <div class="look-left rev-l">
+      <img class="look-main-img" src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=700&auto=format&fit=crop&q=80" alt="The Look">
+      <div class="look-img-badge">
+        <div class="look-img-badge-num">03</div>
+        <div class="look-img-badge-text">Pieces</div>
+      </div>
+      <div class="look-dot look-dot-1">1</div>
+      <div class="look-dot look-dot-2">2</div>
+      <div class="look-dot look-dot-3">3</div>
+    </div>
+    <div class="look-right rev-r">
+      <div class="look-right-header">
+        <div class="s-label">Complete Ensemble</div>
+        <h2 class="s-title">Shop the <em>Complete Look</em></h2>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.8;margin-top:1rem">Tap the numbered pins to explore each piece individually, or add the full curated look at a bundle price.</p>
+      </div>
+      <div class="look-items-list">
+        <div class="look-item-row">
+          <div class="look-item-num">1</div>
+          <img class="look-item-img" src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=200&auto=format&fit=crop&q=80" alt="">
+          <div class="look-item-info">
+            <div class="look-item-label">Rajputi Saree</div>
+            <div class="look-item-name">Crimson Rajputi Saree</div>
+            <div class="look-item-price">₹12,500 · 6 yards · Pure Silk</div>
+          </div>
+          <button class="look-add-btn">+</button>
+        </div>
+        <div class="look-item-row">
+          <div class="look-item-num">2</div>
+          <img class="look-item-img" src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=200&auto=format&fit=crop&q=80" alt="">
+          <div class="look-item-info">
+            <div class="look-item-label">Blouse</div>
+            <div class="look-item-name">Embroidered Silk Blouse</div>
+            <div class="look-item-price">₹3,200 · Custom Stitched</div>
+          </div>
+          <button class="look-add-btn">+</button>
+        </div>
+        <div class="look-item-row">
+          <div class="look-item-num">3</div>
+          <img class="look-item-img" src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=200&auto=format&fit=crop&q=80" alt="">
+          <div class="look-item-info">
+            <div class="look-item-label">Jewellery</div>
+            <div class="look-item-name">Kundan Necklace Set</div>
+            <div class="look-item-price">₹4,800 · Polki Statement</div>
+          </div>
+          <button class="look-add-btn">+</button>
+        </div>
+      </div>
+      <div class="look-bundle">
+        <div>
+          <div class="look-bundle-label">Complete Look — Save ₹2,500</div>
+          <div class="look-bundle-save">Bundle pricing applied at checkout</div>
+        </div>
+        <div class="look-bundle-price">₹17,900</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section id="trust">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <span class="trust-icon">🔍</span>
+      <div class="trust-name">Fabric Zoom View</div>
+      <div class="trust-desc">Ultra-HD texture inspection on every product</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">📏</span>
+      <div class="trust-name">Custom Stitching</div>
+      <div class="trust-desc">Enter measurements for a tailored-perfect fit</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">✈️</span>
+      <div class="trust-name">Free Shipping</div>
+      <div class="trust-desc">Pan India delivery on orders above ₹2,999</div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">🔄</span>
+      <div class="trust-name">7-Day Returns</div>
+      <div class="trust-desc">Hassle-free return & exchange policy</div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDAL -->
+<section id="bridal">
+  <div class="bridal-bg"></div>
+  <div class="bridal-frame">
+    <div class="bridal-frame-corner bfc-tl"></div>
+    <div class="bridal-frame-corner bfc-tr"></div>
+    <div class="bridal-frame-corner bfc-bl"></div>
+    <div class="bridal-frame-corner bfc-br"></div>
+  </div>
+  <div class="bridal-content rev">
+    <div class="bridal-kicker">Bridal Services</div>
+    <h2 class="bridal-h2">Your Dream<br><em>Bridal Look</em></h2>
+    <p class="bridal-p">Our dedicated bridal team helps you craft the perfect look for every wedding ceremony — from the intimate Mehendi to the grand Vidai. Book a private consultation today.</p>
+    <div class="bridal-services">
+      <div class="bs-card">
+        <span class="bs-icon">💎</span>
+        <div class="bs-name">Private Consultation</div>
+        <div class="bs-desc">One-on-one session with our bridal stylist to curate your complete wedding trousseau</div>
+      </div>
+      <div class="bs-card">
+        <span class="bs-icon">📖</span>
+        <div class="bs-name">Bridal Mood Board</div>
+        <div class="bs-desc">Save and organize your dream looks in a personalized digital lookbook</div>
+      </div>
+      <div class="bs-card">
+        <span class="bs-icon">✂️</span>
+        <div class="bs-name">Custom Couture</div>
+        <div class="bs-desc">Bespoke Rajputi Poshak crafted exclusively for your special day</div>
+      </div>
+    </div>
+    <a href="#" class="btn-royal">Book Bridal Consultation</a>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testi-header rev">
+    <div>
+      <div class="s-label">Love Stories</div>
+      <h2 class="s-title">From Our <em>Customers</em></h2>
+    </div>
+    <div style="font-size:.8rem;color:var(--muted)">4.9 ★ · 2,400+ reviews</div>
+  </div>
+  <div class="testi-grid rev">
+    <div class="testi-card">
+      <div class="testi-large-q">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The Rajputi Saree I ordered for my sister's wedding was absolutely breathtaking. The Gota Patti work was flawless and the silk quality exceeded every expectation.</p>
+      <div class="testi-author">
+        <img class="testi-img" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100&auto=format&fit=crop&q=80" alt="">
+        <div>
+          <div class="testi-name">Priya Sharma</div>
+          <div class="testi-city">Jaipur, Rajasthan</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-large-q">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Ordered a custom Poshak with specific measurements. The stitching was absolutely perfect, delivered before time. Sarohans is now my go-to for every special occasion.</p>
+      <div class="testi-author">
+        <img class="testi-img" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&auto=format&fit=crop&q=80" alt="">
+        <div>
+          <div class="testi-name">Aarti Rathore</div>
+          <div class="testi-city">Udaipur, Rajasthan</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-large-q">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The bridal consultation was a truly personal and luxurious experience. They understood my vision perfectly and created something I will cherish forever. Truly royal.</p>
+      <div class="testi-author">
+        <img class="testi-img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" alt="">
+        <div>
+          <div class="testi-name">Meenakshi Joshi</div>
+          <div class="testi-city">New Delhi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UGC -->
+<section id="ugc">
+  <div class="ugc-top rev">
+    <div>
+      <div class="s-label">Community</div>
+      <h2 class="s-title">As Seen on <em>Instagram</em></h2>
+    </div>
+    <div class="ugc-handle">@sarohans</div>
+  </div>
+  <div class="ugc-grid">
+    <div class="ugc-item"><img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=400&auto=format&fit=crop&q=80" alt=""><div class="ugc-hover"><div class="ugc-icon">📷</div></div></div>
+    <div class="ugc-item"><img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&auto=format&fit=crop&q=80" alt=""><div class="ugc-hover"><div class="ugc-icon">📷</div></div></div>
+    <div class="ugc-item"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80" alt=""><div class="ugc-hover"><div class="ugc-icon">📷</div></div></div>
+    <div class="ugc-item"><img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&auto=format&fit=crop&q=80" alt=""><div class="ugc-hover"><div class="ugc-icon">📷</div></div></div>
+    <div class="ugc-item"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&auto=format&fit=crop&q=80" alt=""><div class="ugc-hover"><div class="ugc-icon">📷</div></div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="mughal-pattern"></div>
+  <div class="nl-inner rev">
+    <div class="s-label" style="justify-content:center;margin-bottom:1.2rem">Stay in the Loop</div>
+    <h2 class="nl-title">First Look at New <em>Collections</em></h2>
+    <p class="nl-sub">Join 12,000+ women who get early access to new arrivals, exclusive offers & styling tips from the heart of Rajasthan.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input class="nl-input" type="email" placeholder="Your email address">
+      <button class="nl-btn">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo">SARO<em>HANS</em></span>
+      <div class="footer-tagline">The Royal Edit · Est. 2024</div>
+      <p class="footer-desc">A premium ethnic wear brand rooted in Rajasthani heritage. We celebrate the artistry of India's master craftsmen through every saree and poshak we create.</p>
+      <div class="footer-socials">
+        <a href="#" class="soc-btn">f</a>
+        <a href="#" class="soc-btn">in</a>
+        <a href="#" class="soc-btn">yt</a>
+        <a href="#" class="soc-btn">tw</a>
+      </div>
+    </div>
+    <div>
+      <div class="f-col-title">Collections</div>
+      <ul class="f-links">
+        <li><a href="#">Rajputi Saree</a></li>
+        <li><a href="#">Rajputi Poshak</a></li>
+        <li><a href="#">Party Wear Saree</a></li>
+        <li><a href="#">Premium Ethnic</a></li>
+        <li><a href="#">Bridal Collection</a></li>
+        <li><a href="#">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-col-title">Customer Care</div>
+      <ul class="f-links">
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Custom Stitching</a></li>
+        <li><a href="#">Fabric Guide</a></li>
+        <li><a href="#">Wash & Care</a></li>
+        <li><a href="#">Track Order</a></li>
+        <li><a href="#">Returns</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-col-title">Contact</div>
+      <ul class="f-links">
+        <li><a href="#">WhatsApp Us</a></li>
+        <li><a href="#">Book Consultation</a></li>
+        <li><a href="#">hello@sarohans.com</a></li>
+        <li><a href="#">+91 98765 43210</a></li>
+      </ul>
+      <div style="margin-top:2rem">
+        <div style="font-size:.58rem;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:.8rem">Secure Payments</div>
+        <div class="payment-tags">
+          <span class="pay-tag">Razorpay</span>
+          <span class="pay-tag">UPI</span>
+          <span class="pay-tag">COD</span>
+          <span class="pay-tag">Card</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Sarohans. All rights reserved. Made with ♥ in India.</div>
+    <div style="display:flex;gap:2rem">
+      <a href="#" style="font-size:.68rem;color:rgba(248,244,238,.2);text-decoration:none;cursor:none">Privacy Policy</a>
+      <a href="#" style="font-size:.68rem;color:rgba(248,244,238,.2);text-decoration:none;cursor:none">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/919876543210" class="wa" target="_blank">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.565 4.143 1.55 5.878L0 24l6.302-1.55C8.04 23.43 9.985 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.892 0-3.668-.515-5.188-1.41l-.372-.22-3.741.919.962-3.621-.241-.383C2.546 15.73 2 13.933 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+// Custom cursor
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function loop(){ rx+=(mx-rx)*.13; ry+=(my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(loop); })();
+
+// Nav stuck
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('stuck', scrollY > 60));
+
+// Reveal on scroll
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }), { threshold: 0.08 });
+document.querySelectorAll('.rev, .rev-l, .rev-r').forEach(el => obs.observe(el));
+
+// Hero parallax
+window.addEventListener('scroll', () => {
+  const bg = document.querySelector('.hero-bg');
+  if(bg) bg.style.transform = `scale(1.05) translateY(${scrollY*.12}px)`;
+});
+</script>
+</body>
+</html>

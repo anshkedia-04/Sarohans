@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SAROHANS — Modern Ethnic</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --card-bg: #141414;
+    --text: #ffffff;
+    --text-muted: #a3a3a3;
+    --accent: #7C3AED; /* Violet */
+    --accent-glow: rgba(124, 58, 237, 0.5);
+    --border: rgba(255,255,255,0.1);
+    --success: #10B981;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+  
+  /* Typography */
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+  /* Utilities */
+  .container-custom { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+  .text-gradient { background: linear-gradient(to right, #fff, #a3a3a3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  
+  /* Header */
+  header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 1.5rem 0; transition: all 0.3s; }
+  header.scrolled { background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 1rem 0; }
+  .nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+  .nav-link { position: relative; font-weight: 400; letter-spacing: 0.05em; color: var(--text-muted); transition: color 0.3s; }
+  .nav-link:hover { color: var(--text); }
+  .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+  .nav-link:hover::after { width: 100%; }
+  .mega-menu { position: absolute; top: 100%; left: 0; width: 100vw; background: #0a0a0a; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 3rem 0; transform: translateY(-10px); opacity: 0; visibility: hidden; transition: all 0.3s; margin-left: calc(-1 * (100vw - 100%) / 2); left: 50%; transform: translateX(-50%) translateY(-10px); pointer-events: none; }
+  .nav-item:hover .mega-menu { transform: translateX(-50%) translateY(0); opacity: 1; visibility: visible; pointer-events: auto; }
+  
+  /* Hero */
+  .hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding-top: 80px; overflow: hidden; }
+  .hero-blob { position: absolute; width: 500px; height: 500px; background: var(--accent); filter: blur(150px); opacity: 0.2; border-radius: 50%; z-index: 0; animation: float 10s infinite ease-in-out; }
+  .blob-1 { top: -10%; right: -10%; }
+  .blob-2 { bottom: -10%; left: -10%; animation-delay: 5s; }
+  @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(30px, 50px); } }
+  
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+  @media(min-width: 1024px) { .hero-grid { grid-template-columns: 1.2fr 0.8fr; } }
+  
+  .hero-img-box { position: relative; height: 600px; border-radius: 20px; overflow: hidden; transform: perspective(1000px) rotateY(-5deg); transition: transform 0.5s; box-shadow: 20px 20px 60px rgba(0,0,0,0.5); border: 1px solid var(--border); }
+  .hero-img-box:hover { transform: perspective(1000px) rotateY(0deg); }
+  .hero-img { width: 100%; height: 100%; object-fit: cover; }
+  
+  /* Categories */
+  .cat-scroll { display: flex; gap: 2rem; overflow-x: auto; padding: 2rem 0; scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none; }
+  .cat-scroll::-webkit-scrollbar { display: none; }
+  .cat-card { min-width: 280px; height: 350px; position: relative; border-radius: 16px; overflow: hidden; scroll-snap-align: start; cursor: pointer; transition: transform 0.3s; }
+  .cat-card:hover { transform: translateY(-10px); }
+  .cat-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .cat-card:hover .cat-img { transform: scale(1.1); }
+  .cat-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; align-items: flex-end; padding: 2rem; }
+  
+  /* Product Grid */
+  .product-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid var(--border); transition: all 0.3s; position: relative; group; }
+  .product-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px -10px var(--accent-glow); transform: translateY(-5px); }
+  .p-img-container { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+  .p-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .product-card:hover .p-img { transform: scale(1.05); }
+  .p-actions { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; transition: all 0.3s; width: 90%; display: flex; gap: 0.5rem; }
+  .product-card:hover .p-actions { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .btn-icon { width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #000; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s; }
+  .btn-icon:hover { transform: scale(1.1); background: var(--accent); color: #fff; }
+  .btn-add { flex: 1; background: #fff; color: #000; border-radius: 20px; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: background 0.3s; }
+  .btn-add:hover { background: var(--accent); color: #fff; }
+  .quick-view-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); color: white; padding: 0.8rem 1.5rem; border-radius: 30px; border: 1px solid var(--border); opacity: 0; transition: all 0.3s; cursor: pointer; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .product-card:hover .quick-view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  
+  /* Features */
+  .feature-box { padding: 3rem; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); text-align: center; transition: transform 0.3s; }
+  .feature-box:hover { transform: translateY(-5px); border-color: var(--accent); }
+  .feature-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 1.5rem; }
+
+  /* Footer */
+  .footer-modern { border-top: 1px solid var(--border); background: #050505; padding: 5rem 0 2rem; }
+  .footer-title { font-size: 5rem; font-weight: 700; color: rgba(255,255,255,0.05); text-align: center; margin-bottom: -2rem; pointer-events: none; user-select: none; }
+  
+  /* Cart Sidebar */
+  .cart-sidebar { position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100vh; background: #111; z-index: 200; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border-left: 1px solid var(--border); display: flex; flex-direction: column; }
+  .cart-sidebar.open { transform: translateX(0); }
+  
+  /* Product Modal */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 300; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal-content { background: #111; width: 95%; max-width: 1100px; height: 90vh; border-radius: 20px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr; overflow: hidden; position: relative; }
+  @media(min-width: 1024px) { .modal-content { grid-template-columns: 1.2fr 1fr; } }
+  .modal-img-section { position: relative; background: #050505; overflow: hidden; }
+  .modal-img { width: 100%; height: 100%; object-fit: cover; }
+  .texture-label { position: absolute; bottom: 2rem; left: 2rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 0.5rem 1rem; border-radius: 30px; border: 1px solid var(--border); font-size: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+  .zoom-lens { position: absolute; width: 150px; height: 150px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; display: none; background-repeat: no-repeat; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+  .modal-details { padding: 3rem; overflow-y: auto; }
+  
+  /* Timeline */
+  .timeline { display: flex; justify-content: space-between; position: relative; margin: 2rem 0; }
+  .timeline::before { content: ''; position: absolute; top: 7px; left: 0; width: 100%; height: 2px; background: #222; z-index: 0; }
+  .timeline-step { position: relative; z-index: 1; text-align: center; }
+  .timeline-dot { width: 16px; height: 16px; background: #222; border-radius: 50%; margin: 0 auto 0.5rem; border: 2px solid #111; transition: background 0.3s; }
+  .timeline-step.active .timeline-dot { background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+  .timeline-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  
+  /* Blouse Builder */
+  .builder-option { border: 1px solid var(--border); padding: 0.8rem; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .builder-option:hover, .builder-option.selected { border-color: var(--accent); background: rgba(124, 58, 237, 0.1); }
+  
+  /* Mobile Sticky Bar */
+  .mobile-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); border-top: 1px solid var(--border); padding: 1rem; display: flex; justify-content: space-around; z-index: 90; }
+  @media(min-width: 768px) { .mobile-bar { display: none; } }
+  
+  /* Animations */
+  .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header id="header">
+  <div class="container-custom flex justify-between items-center">
+    <a href="#" class="text-2xl font-bold tracking-tighter font-display">SAROHANS</a>
+    
+    <!-- Tri-Axis Nav -->
+    <nav class="hidden md:flex gap-10 h-full items-center">
+      <div class="nav-item group">
+        <a href="#collections" class="nav-link">Collections</a>
+        <!-- Mega Menu: Category -->
+        <div class="mega-menu">
+          <div class="container-custom grid grid-cols-4 gap-8">
+            <div>
+              <h4 class="text-accent mb-4 uppercase text-sm tracking-widest">By Category</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="#" class="hover:text-white">Sarees</a></li>
+                <li><a href="#" class="hover:text-white">Lehengas</a></li>
+                <li><a href="#" class="hover:text-white">Anarkalis</a></li>
+                <li><a href="#" class="hover:text-white">Sharara Sets</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-accent mb-4 uppercase text-sm tracking-widest">Trending</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="#" class="hover:text-white">Velvet Edit</a></li>
+                <li><a href="#" class="hover:text-white">Cocktail Sarees</a></li>
+                <li><a href="#" class="hover:text-white">Fusion Wear</a></li>
+              </ul>
+            </div>
+            <div class="col-span-2 bg-white/5 rounded-xl p-6 flex items-center gap-6">
+              <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&q=80" class="w-32 h-40 object-cover rounded-lg"/>
+              <div>
+                <h3 class="text-xl font-display italic mb-2">New In: The Midnight Series</h3>
+                <a href="#" class="text-sm underline">Shop Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-item group">
+        <a href="#occasions" class="nav-link">Occasions</a>
+        <!-- Mega Menu: Occasion -->
+        <div class="mega-menu">
+          <div class="container-custom grid grid-cols-4 gap-8">
+             <div>
+              <h4 class="text-accent mb-4 uppercase text-sm tracking-widest">Events</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="#" class="hover:text-white">Wedding Guest</a></li>
+                <li><a href="#" class="hover:text-white">Haldi & Mehendi</a></li>
+                <li><a href="#" class="hover:text-white">Cocktail Party</a></li>
+                <li><a href="#" class="hover:text-white">Festive Puja</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="nav-item group">
+        <a href="#craft" class="nav-link">Craft</a>
+        <!-- Mega Menu: Craft -->
+        <div class="mega-menu">
+          <div class="container-custom grid grid-cols-4 gap-8">
+             <div>
+              <h4 class="text-accent mb-4 uppercase text-sm tracking-widest">Heritage</h4>
+              <ul class="space-y-2 text-gray-400">
+                <li><a href="#" class="hover:text-white">Banarasi Silk</a></li>
+                <li><a href="#" class="hover:text-white">Chikankari</a></li>
+                <li><a href="#" class="hover:text-white">Zardozi</a></li>
+                <li><a href="#" class="hover:text-white">Bandhani</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="flex gap-6 items-center">
+      <!-- Visual Search Trigger -->
+      <div class="relative group">
+        <button class="text-white hover:text-accent transition flex items-center gap-2">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </button>
+        <div class="absolute right-0 top-full mt-4 w-64 bg-[#111] border border-white/10 p-4 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+          <div class="text-xs text-gray-400 mb-2 uppercase tracking-wider">Visual Search</div>
+          <div class="border-2 border-dashed border-white/20 rounded-lg p-4 text-center cursor-pointer hover:border-accent hover:text-accent transition">
+            <svg class="mx-auto mb-2" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            <span class="text-sm">Upload Photo</span>
+          </div>
+        </div>
+      </div>
+      
+      <button class="text-white hover:text-accent transition relative" onclick="toggleCart()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <span class="absolute -top-2 -right-2 w-4 h-4 bg-accent rounded-full text-[10px] flex items-center justify-center">2</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-blob blob-1"></div>
+  <div class="hero-blob blob-2"></div>
+  
+  <div class="container-custom hero-grid">
+    <div class="fade-in-up">
+      <span class="text-accent tracking-widest uppercase text-sm font-semibold mb-4 block">Spring / Summer 2026</span>
+      <h1 class="text-6xl md:text-8xl font-medium leading-tight mb-6">
+        Ethnic <br/>
+        <span class="italic text-gray-500">Evolution</span>
+      </h1>
+      <p class="text-gray-400 text-lg max-w-md mb-10 leading-relaxed">
+        Redefining traditional silhouettes with modern cuts and avant-garde aesthetics. 
+        Where heritage meets the future of fashion.
+      </p>
+      <div class="flex gap-4">
+        <a href="#shop" class="px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-accent hover:text-white transition duration-300">Shop Collection</a>
+        <a href="#lookbook" class="px-8 py-4 border border-white/20 text-white font-semibold rounded-full hover:border-white transition duration-300">View Lookbook</a>
+      </div>
+    </div>
+    
+    <div class="hero-img-box fade-in-up" style="transition-delay: 0.2s;">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop" alt="Modern Ethnic" class="hero-img"/>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="py-20 border-b border-white/5">
+  <div class="container-custom">
+    <div class="flex justify-between items-end mb-10 fade-in-up">
+      <h2 class="text-4xl">Shop by Category</h2>
+      <a href="#" class="text-accent hover:text-white transition">View All &rarr;</a>
+    </div>
+    
+    <div class="cat-scroll fade-in-up">
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80" class="cat-img"/>
+        <div class="cat-overlay">
+          <h3 class="text-2xl font-display italic">Sarees</h3>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&q=80" class="cat-img"/>
+        <div class="cat-overlay">
+          <h3 class="text-2xl font-display italic">Kurtas</h3>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80" class="cat-img"/>
+        <div class="cat-overlay">
+          <h3 class="text-2xl font-display italic">Lehengas</h3>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=600&q=80" class="cat-img"/>
+        <div class="cat-overlay">
+          <h3 class="text-2xl font-display italic">Fusion</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Occasion Quiz Banner -->
+<section class="py-10 bg-gradient-to-r from-[#111] to-[#0a0a0a] border-y border-white/5">
+  <div class="container-custom flex flex-col md:flex-row items-center justify-between gap-8">
+    <div class="flex items-center gap-6">
+      <div class="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-3xl">✨</div>
+      <div>
+        <h3 class="text-2xl font-display italic">Not sure what to wear?</h3>
+        <p class="text-gray-400 text-sm">Take our 30-second quiz to find your perfect outfit based on occasion and body type.</p>
+      </div>
+    </div>
+    <button class="px-8 py-3 border border-accent text-accent rounded-full hover:bg-accent hover:text-white transition uppercase tracking-widest text-sm">
+      Start Style Quiz
+    </button>
+  </div>
+</section>
+
+<!-- Trending Grid -->
+<section id="shop" class="py-24">
+  <div class="container-custom">
+    <div class="text-center mb-16 fade-in-up">
+      <span class="text-accent uppercase tracking-widest text-sm font-bold">Curated For You</span>
+      <h2 class="text-5xl mt-4">Trending Now</h2>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="productGrid">
+      <!-- JS Injection -->
+    </div>
+    
+    <div class="text-center mt-16">
+      <button class="px-10 py-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition uppercase tracking-widest text-sm">Load More</button>
+    </div>
+  </div>
+</section>
+
+<!-- Shop The Look -->
+<section class="py-20 bg-[#080808]">
+  <div class="container-custom">
+    <div class="flex justify-between items-end mb-12 fade-in-up">
+      <h2 class="text-4xl">Shop The Look</h2>
+      <p class="text-gray-400 max-w-md text-right hidden md:block">Curated ensembles styled by our experts. Get the complete look with matching accessories.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="relative aspect-[4/3] group overflow-hidden rounded-xl cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1596473536124-14b78052b575?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105"/>
+        <div class="absolute bottom-6 left-6 bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/10">
+          <h3 class="font-display text-xl mb-1">The Sangeet Edit</h3>
+          <span class="text-xs uppercase tracking-widest text-accent">3 Items in set</span>
+        </div>
+      </div>
+      <div class="relative aspect-[4/3] group overflow-hidden rounded-xl cursor-pointer">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105"/>
+        <div class="absolute bottom-6 left-6 bg-white/10 backdrop-blur-md p-4 rounded-lg border border-white/10">
+          <h3 class="font-display text-xl mb-1">Modern Mehendi</h3>
+          <span class="text-xs uppercase tracking-widest text-accent">4 Items in set</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Editorial / Banner -->
+<section class="py-20">
+  <div class="container-custom">
+    <div class="relative rounded-2xl overflow-hidden h-[600px] group">
+      <img src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=1600&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-105"/>
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition duration-500"></div>
+      <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6">
+        <h2 class="text-6xl md:text-7xl font-display italic mb-6 fade-in-up">The Royal Velvet</h2>
+        <p class="text-xl max-w-2xl mb-8 text-gray-200 fade-in-up">Experience the touch of royalty with our exclusive winter velvet collection. Hand-embroidered zardozi on premium silk velvet.</p>
+        <button class="px-8 py-3 bg-accent text-white rounded-full hover:bg-white hover:text-black transition fade-in-up">Explore Series</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- International Shipping Hub -->
+<section class="py-16 border-t border-white/10">
+  <div class="container-custom text-center">
+    <span class="text-accent text-4xl mb-4 block">🌍</span>
+    <h2 class="text-3xl font-display mb-4">Global Heritage Hub</h2>
+    <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+      Bringing India to your doorstep, wherever you are. We ship to <strong>200+ countries</strong> including USA, UK, Canada, and UAE.
+      <br/><span class="text-sm text-gray-500 mt-2 block">Customs duties & taxes calculated at checkout. No surprises.</span>
+    </p>
+    <div class="flex justify-center gap-4 text-sm text-gray-500 uppercase tracking-widest">
+      <span>🇺🇸 USD</span>
+      <span>🇬🇧 GBP</span>
+      <span>🇦🇪 AED</span>
+      <span>🇨🇦 CAD</span>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="py-20 bg-[#0f0f0f]">
+  <div class="container-custom grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="feature-box fade-in-up">
+      <div class="feature-icon">✦</div>
+      <h3 class="text-xl font-semibold mb-2">Premium Quality</h3>
+      <p class="text-gray-400 text-sm">Sourced directly from artisans with quality checks at every stage.</p>
+    </div>
+    <div class="feature-box fade-in-up" style="transition-delay: 0.1s;">
+      <div class="feature-icon">✈</div>
+      <h3 class="text-xl font-semibold mb-2">Global Shipping</h3>
+      <p class="text-gray-400 text-sm">Express delivery to over 100 countries with customs handling.</p>
+    </div>
+    <div class="feature-box fade-in-up" style="transition-delay: 0.2s;">
+      <div class="feature-icon">↺</div>
+      <h3 class="text-xl font-semibold mb-2">Easy Returns</h3>
+      <p class="text-gray-400 text-sm">Hassle-free 30-day return policy for all domestic orders.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-modern">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+      <div class="md:col-span-1">
+        <a href="#" class="text-3xl font-bold font-display mb-6 block">SAROHANS</a>
+        <p class="text-gray-500 mb-6">Modern ethnic wear for the contemporary woman. Redefining heritage.</p>
+        <div class="flex gap-4">
+          <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition">IG</a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition">FB</a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-accent transition">TW</a>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Shop</h4>
+        <ul class="space-y-3 text-gray-400">
+          <li><a href="#" class="hover:text-white transition">New Arrivals</a></li>
+          <li><a href="#" class="hover:text-white transition">Best Sellers</a></li>
+          <li><a href="#" class="hover:text-white transition">Sale</a></li>
+          <li><a href="#" class="hover:text-white transition">Gift Cards</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Support</h4>
+        <ul class="space-y-3 text-gray-400">
+          <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+          <li><a href="#" class="hover:text-white transition">Shipping</a></li>
+          <li><a href="#" class="hover:text-white transition">Returns</a></li>
+          <li><a href="#" class="hover:text-white transition">Size Guide</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="text-lg font-semibold mb-6">Newsletter</h4>
+        <p class="text-gray-500 mb-4 text-sm">Subscribe to get special offers and once-in-a-lifetime deals.</p>
+        <div class="flex border-b border-white/20 pb-2">
+          <input type="email" placeholder="Enter your email" class="bg-transparent w-full outline-none text-white placeholder-gray-600"/>
+          <button class="text-accent uppercase font-bold text-sm">Join</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+      <p>&copy; 2026 Sarohans. All rights reserved.</p>
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-title">SAROHANS</div>
+</footer>
+
+<!-- Mobile Sticky Filter Bar -->
+<div class="mobile-bar">
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white"><span class="text-lg mb-1">🔍</span>Search</button>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white"><span class="text-lg mb-1">⚡</span>New</button>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white"><span class="text-lg mb-1">🛍</span>Cart</button>
+  <button class="flex flex-col items-center text-xs text-gray-400 hover:text-white"><span class="text-lg mb-1">👤</span>Account</button>
+</div>
+
+<!-- Cart Sidebar -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="p-6 border-b border-white/10 flex justify-between items-center">
+    <h2 class="text-2xl font-display italic">Your Bag</h2>
+    <button onclick="toggleCart()" class="text-2xl hover:text-accent">&times;</button>
+  </div>
+  <div class="flex-1 p-6 overflow-y-auto">
+    <!-- Empty State -->
+    <div class="text-center text-gray-500 mt-10">
+      <p>Your bag is currently empty.</p>
+      <button onclick="toggleCart()" class="mt-4 text-accent underline">Continue Shopping</button>
+    </div>
+  </div>
+  <div class="p-6 border-t border-white/10 bg-[#141414]">
+    <div class="flex justify-between text-xl font-bold mb-6">
+      <span>Total</span>
+      <span>₹0.00</span>
+    </div>
+    <button class="w-full py-4 bg-white text-black font-bold rounded-full hover:bg-accent hover:text-white transition">Checkout</button>
+  </div>
+</div>
+
+<!-- Product Quick View Modal -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal-content">
+    <button class="absolute top-4 right-4 z-50 w-10 h-10 bg-black/50 rounded-full text-white flex items-center justify-center hover:bg-accent transition" onclick="closeModal()">&times;</button>
+    
+    <!-- Image Section with Zoom -->
+    <div class="modal-img-section group" onmousemove="zoomImage(event)" onmouseleave="resetZoom()">
+      <img id="modalImg" src="" class="modal-img"/>
+      <div class="texture-label">
+        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+        Pure Silk - Grainy Texture
+      </div>
+      <div id="zoomLens" class="zoom-lens"></div>
+    </div>
+    
+    <!-- Details Section -->
+    <div class="modal-details">
+      <div class="flex justify-between items-start mb-2">
+        <h2 class="text-3xl font-display italic" id="modalTitle">Product Name</h2>
+        <span class="text-xl font-bold text-accent" id="modalPrice">₹0</span>
+      </div>
+      <p class="text-gray-400 text-sm mb-6">Handwoven in Varanasi. 100% Authentic Craft.</p>
+      
+      <!-- Pre-order Timeline -->
+      <div class="mb-8">
+        <h4 class="text-xs uppercase tracking-widest text-gray-500 mb-4">Artisan Timeline</h4>
+        <div class="timeline">
+          <div class="timeline-step active">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Weaving<br/>(2 Wks)</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">Embroidery<br/>(1 Wk)</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-label">QC & Ship<br/>(2 Days)</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Blouse Builder -->
+      <div class="mb-8 p-4 bg-white/5 rounded-xl border border-white/10">
+        <div class="flex justify-between items-center mb-4">
+          <h4 class="text-sm font-bold">Customise Blouse</h4>
+          <span class="text-xs text-accent cursor-pointer">Size Guide (Body Type)</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mb-3">
+          <div class="builder-option selected">Deep V</div>
+          <div class="builder-option">Boat Neck</div>
+          <div class="builder-option">High Neck</div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="builder-option">Sleeveless</div>
+          <div class="builder-option selected">Elbow</div>
+          <div class="builder-option">Full</div>
+        </div>
+      </div>
+      
+      <!-- Craft Story -->
+      <div class="mb-8 flex gap-4 items-start">
+        <div class="text-3xl">📜</div>
+        <div>
+          <h4 class="font-bold text-sm mb-1">Craft Heritage</h4>
+          <p class="text-xs text-gray-400 leading-relaxed">This piece uses the 400-year-old <em>Kadwa</em> technique where each motif is woven separately, leaving no loose threads on the back.</p>
+        </div>
+      </div>
+      
+      <!-- Care Instructions -->
+      <div class="flex gap-4 mb-8 border-t border-white/10 pt-4">
+        <div class="text-center" title="Dry Clean Only">
+          <div class="text-xl mb-1">🧼</div>
+          <span class="text-[10px] uppercase text-gray-500">Dry Clean</span>
+        </div>
+        <div class="text-center" title="Steam Iron">
+          <div class="text-xl mb-1">💨</div>
+          <span class="text-[10px] uppercase text-gray-500">Steam Iron</span>
+        </div>
+        <div class="text-center" title="Store in Muslin">
+          <div class="text-xl mb-1">📦</div>
+          <span class="text-[10px] uppercase text-gray-500">Store Wrapped</span>
+        </div>
+      </div>
+      
+      <button class="w-full py-4 bg-white text-black font-bold rounded-full hover:bg-accent hover:text-white transition">Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Product Data
+  const products = [
+    { id: 1, name: "Neon Silk Saree", price: "₹12,500", img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80", tag: "New" },
+    { id: 2, name: "Midnight Lehenga", price: "₹24,000", img: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&q=80", tag: "Hot" },
+    { id: 3, name: "Electric Blue Set", price: "₹8,900", img: "https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=600&q=80", tag: "" },
+    { id: 4, name: "Ivory Fusion", price: "₹15,200", img: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80", tag: "Sale" },
+    { id: 5, name: "Velvet Drape", price: "₹18,500", img: "https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=600&q=80", tag: "" },
+    { id: 6, name: "Noir Kurta", price: "₹6,500", img: "https://images.unsplash.com/photo-1596473536124-14b78052b575?w=600&q=80", tag: "" },
+    { id: 7, name: "Crimson Silk", price: "₹21,000", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&q=80", tag: "Limited" },
+    { id: 8, name: "Gold Dust", price: "₹32,000", img: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80", tag: "" }
+  ];
+
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = products.map(p => `
+    <div class="product-card fade-in-up">
+      <div class="p-img-container">
+        ${p.tag ? `<span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-2 py-1 rounded uppercase z-10">${p.tag}</span>` : ''}
+        <img src="${p.img}" alt="${p.name}" class="p-img"/>
+        <div class="p-actions">
+          <button class="btn-add">Add to Cart</button>
+          <div class="btn-icon">♡</div>
+        </div>
+        <button class="quick-view-btn" onclick="openModal('${p.name}', '${p.price}', '${p.img}')">Quick View</button>
+      </div>
+      <div class="p-4">
+        <h3 class="text-lg font-semibold mb-1">${p.name}</h3>
+        <p class="text-gray-400">${p.price}</p>
+      </div>
+    </div>
+  `).join('');
+
+  // Cart Toggle
+  function toggleCart() {
+    document.getElementById('cartSidebar').classList.toggle('open');
+  }
+
+  // Modal Logic
+  function openModal(title, price, img) {
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalPrice').innerText = price;
+    document.getElementById('modalImg').src = img;
+    document.getElementById('productModal').classList.add('open');
+  }
+  
+  function closeModal() {
+    document.getElementById('productModal').classList.remove('open');
+  }
+  
+  // Fabric Zoom Logic
+  function zoomImage(e) {
+    const img = document.getElementById('modalImg');
+    const lens = document.getElementById('zoomLens');
+    const rect = img.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    lens.style.display = 'block';
+    lens.style.left = (x - 75) + 'px';
+    lens.style.top = (y - 75) + 'px';
+    lens.style.backgroundImage = `url('${img.src}')`;
+    lens.style.backgroundSize = `${rect.width * 2}px ${rect.height * 2}px`;
+    lens.style.backgroundPosition = `-${x * 2 - 75}px -${y * 2 - 75}px`;
+  }
+  
+  function resetZoom() {
+    document.getElementById('zoomLens').style.display = 'none';
+  }
+
+  // Header Scroll Effect
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Intersection Observer for Animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

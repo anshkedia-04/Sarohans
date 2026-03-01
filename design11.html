@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sarohans — Ethnic Wear</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display) + Raleway (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES & RESET
+    ============================================================ */
+    :root {
+      --cream:       #FAF6F0;
+      --warm-white:  #FDF9F4;
+      --gold:        #C8964A;
+      --gold-light:  #E8B96A;
+      --gold-dark:   #9A6E2E;
+      --maroon:      #6B1F2A;
+      --maroon-light:#8B3040;
+      --text-dark:   #2C1810;
+      --text-mid:    #5C3D2E;
+      --text-light:  #9E7B65;
+      --border:      #E8DDD0;
+      --shadow:      rgba(44,24,16,0.12);
+      --font-display:'Cormorant Garamond', Georgia, serif;
+      --font-body:   'Raleway', sans-serif;
+      --nav-h:       72px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+    img { display: block; width: 100%; object-fit: cover; }
+    ul { list-style: none; }
+
+    /* ============================================================
+       UTILITY
+    ============================================================ */
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--maroon);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--maroon-light); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      border: 1.5px solid var(--gold);
+      color: var(--gold-dark);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 11px 28px;
+      transition: all 0.25s;
+    }
+    .btn-outline:hover { background: var(--gold); color: #fff; }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+    .section-sub {
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--gold);
+      margin: 16px 0 24px;
+    }
+
+    /* ============================================================
+       ANNOUNCEMENT BAR
+    ============================================================ */
+    .announcement-bar {
+      background: var(--maroon);
+      color: #fff;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 9px 16px;
+    }
+    .announcement-bar span { color: var(--gold-light); }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 16px var(--shadow);
+    }
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-h);
+    }
+
+    /* Logo */
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+    .logo span { color: var(--gold); }
+
+    /* Nav links (desktop) */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .nav-item { position: relative; }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--maroon); }
+    .nav-link i { font-size: 0.65rem; transition: transform 0.2s; }
+    .nav-item:hover .nav-link i { transform: rotate(180deg); }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: all 0.22s ease;
+    }
+    .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown a {
+      display: block;
+      padding: 11px 20px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.05em;
+    }
+    .dropdown a:last-child { border-bottom: none; }
+    .dropdown a:hover { background: var(--cream); color: var(--maroon); padding-left: 26px; }
+
+    /* Nav Icons */
+    .nav-icons { display: flex; align-items: center; gap: 4px; }
+    .nav-icon-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      transition: color 0.2s;
+      border-radius: 50%;
+    }
+    .nav-icon-btn:hover { color: var(--maroon); background: var(--cream); }
+    .cart-badge {
+      position: absolute;
+      top: 4px; right: 4px;
+      background: var(--maroon);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+    .cart-badge.visible { display: flex; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 28px;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      height: 2px;
+      background: var(--text-dark);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--warm-white);
+      z-index: 999;
+      overflow-y: auto;
+      padding: 80px 24px 40px;
+      transform: translateX(-100%);
+      transition: transform 0.32s ease;
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-nav-link {
+      display: block;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--text-dark);
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+    .mobile-nav-link:hover { color: var(--maroon); }
+    .mobile-sub {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    /* Search bar */
+    .search-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44,24,16,0.6);
+      z-index: 2000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 120px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s;
+    }
+    .search-overlay.open { opacity: 1; visibility: visible; }
+    .search-box {
+      background: var(--warm-white);
+      width: 100%;
+      max-width: 600px;
+      padding: 24px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid var(--gold);
+      padding: 12px 48px 12px 4px;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      background: transparent;
+      color: var(--text-dark);
+      outline: none;
+    }
+    .search-box input::placeholder { color: var(--text-light); }
+    .search-close {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-size: 1.2rem;
+      color: var(--text-mid);
+    }
+    .search-results {
+      margin-top: 12px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+    .search-result-item {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .search-result-item:hover { background: var(--cream); }
+    .search-result-img {
+      width: 44px; height: 56px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .search-result-info { font-size: 0.82rem; }
+    .search-result-info strong { display: block; color: var(--text-dark); margin-bottom: 2px; }
+    .search-result-info span { color: var(--gold-dark); }
+
+    /* ============================================================
+       HERO CAROUSEL
+    ============================================================ */
+    .hero {
+      position: relative;
+      height: min(90vh, 700px);
+      overflow: hidden;
+    }
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+    .hero-slide.active { opacity: 1; }
+    .hero-bg {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    /* Gradient overlay using CSS */
+    .hero-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(44,24,16,0.72) 0%, rgba(44,24,16,0.2) 60%, transparent 100%);
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0;
+      z-index: 2;
+      padding: 0 80px 80px;
+      max-width: 600px;
+    }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      background: rgba(200,150,74,0.18);
+      border: 1px solid rgba(200,150,74,0.4);
+      padding: 5px 14px;
+      margin-bottom: 16px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      max-width: 380px;
+      line-height: 1.7;
+    }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* Carousel controls */
+    .hero-ctrl {
+      position: absolute;
+      bottom: 40px; right: 80px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-btn {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .hero-btn:hover { background: var(--gold); border-color: var(--gold); }
+    .hero-dots {
+      display: flex;
+      gap: 6px;
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .hero-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transition: background 0.3s, width 0.3s;
+      cursor: pointer;
+    }
+    .hero-dot.active { background: var(--gold-light); width: 20px; border-radius: 3px; }
+
+    /* ============================================================
+       CATEGORY STRIP
+    ============================================================ */
+    .cat-strip {
+      padding: 60px 0 48px;
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-strip-head {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .cat-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+    .cat-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .cat-card:hover img { transform: scale(1.06); }
+    .cat-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(44,24,16,0.7) 0%, transparent 55%);
+    }
+    .cat-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 24px 20px 20px;
+      color: #fff;
+    }
+    .cat-label h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .cat-label span {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .cat-label button {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 6px 14px;
+      transition: all 0.2s;
+    }
+    .cat-card:hover .cat-label button { background: var(--gold); border-color: var(--gold); }
+
+    /* ============================================================
+       FEATURED PRODUCTS
+    ============================================================ */
+    .products-section {
+      padding: 64px 0;
+    }
+    .products-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 8px 18px;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--text-mid);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+    .filter-tab:hover, .filter-tab.active {
+      background: var(--maroon);
+      color: #fff;
+      border-color: var(--maroon);
+    }
+    /* Product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .product-card {
+      position: relative;
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.25s, transform 0.25s;
+      overflow: hidden;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 32px var(--shadow);
+      transform: translateY(-4px);
+    }
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+    .product-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--maroon);
+      color: #fff;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      font-weight: 600;
+    }
+    .product-badge.sale { background: var(--gold-dark); }
+    .product-wish {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      transition: all 0.2s;
+      opacity: 0;
+    }
+    .product-card:hover .product-wish { opacity: 1; }
+    .product-wish.liked { color: var(--maroon); opacity: 1; }
+    .product-info {
+      padding: 16px;
+    }
+    .product-cat {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .price-now {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--maroon);
+      font-family: var(--font-display);
+    }
+    .price-old {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
+    .price-disc {
+      font-size: 0.68rem;
+      background: #FFF4E0;
+      color: var(--gold-dark);
+      padding: 2px 6px;
+      font-weight: 700;
+    }
+    .add-to-cart-btn {
+      width: 100%;
+      padding: 11px;
+      background: transparent;
+      border: 1.5px solid var(--maroon);
+      color: var(--maroon);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.25s;
+    }
+    .add-to-cart-btn:hover {
+      background: var(--maroon);
+      color: #fff;
+    }
+    .add-to-cart-btn.added {
+      background: var(--maroon);
+      color: #fff;
+    }
+
+    /* ============================================================
+       BANNER STRIP
+    ============================================================ */
+    .banner-strip {
+      background: var(--maroon);
+      padding: 60px 0;
+    }
+    .banner-strip-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 300px;
+    }
+    .banner-half {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .banner-half:first-child {
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .banner-half .section-sub { color: var(--gold-light); }
+    .banner-half .section-title { color: #fff; }
+    .banner-half p { color: rgba(255,255,255,0.7); font-size: 0.88rem; margin: 12px 0 24px; line-height: 1.7; }
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 13px 32px;
+      transition: background 0.25s;
+      align-self: flex-start;
+    }
+    .btn-gold:hover { background: var(--gold-dark); }
+
+    /* ============================================================
+       TESTIMONIALS
+    ============================================================ */
+    .testimonials { padding: 72px 0; background: var(--warm-white); }
+    .testimonials-head { text-align: center; margin-bottom: 48px; }
+    .testimonials-head .divider { margin: 16px auto 0; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testi-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+    }
+    .testi-card::before {
+      content: '\201C';
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--gold);
+      opacity: 0.3;
+      position: absolute;
+      top: 8px; left: 20px;
+      line-height: 1;
+    }
+    .testi-text {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      line-height: 1.7;
+    }
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testi-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: #fff;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .testi-name { font-weight: 600; font-size: 0.85rem; color: var(--text-dark); }
+    .testi-loc { font-size: 0.73rem; color: var(--text-light); }
+    .testi-stars { color: var(--gold); font-size: 0.75rem; margin-top: 2px; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.75);
+    }
+    .footer-top {
+      padding: 64px 0 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 40px;
+    }
+    .footer-brand .logo { color: #fff; margin-bottom: 16px; display: block; }
+    .footer-brand .logo span { color: var(--gold); }
+    .footer-brand p { font-size: 0.83rem; line-height: 1.8; margin-bottom: 24px; }
+    .social-links { display: flex; gap: 10px; }
+    .social-link {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      transition: all 0.2s;
+    }
+    .social-link:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-contact p {
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .footer-contact i {
+      color: var(--gold);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .newsletter-form {
+      display: flex;
+      margin-top: 16px;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-right: none;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,0.35); }
+    .newsletter-form button {
+      background: var(--gold);
+      color: #fff;
+      padding: 0 16px;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .newsletter-form button:hover { background: var(--gold-dark); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p, .footer-bottom a {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+    }
+    .footer-bottom a:hover { color: var(--gold-light); }
+    .footer-pay { display: flex; gap: 10px; align-items: center; }
+    .pay-icon {
+      background: rgba(255,255,255,0.08);
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.5);
+      border-radius: 3px;
+    }
+
+    /* ============================================================
+       CART SIDEBAR
+    ============================================================ */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(44,24,16,0.5);
+      z-index: 1500;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
+    .cart-sidebar {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(420px, 100vw);
+      background: var(--warm-white);
+      z-index: 1501;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+    }
+    .cart-sidebar.open { transform: translateX(0); }
+    .cart-head {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cart-head h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    .cart-close {
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      padding: 4px 8px;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 24px;
+    }
+    .cart-empty {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-light);
+    }
+    .cart-empty i { font-size: 3rem; margin-bottom: 16px; opacity: 0.3; }
+    .cart-empty p { font-size: 0.85rem; }
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cart-item-img {
+      width: 70px; height: 90px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .cart-item-cat {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .cart-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    .qty-btn {
+      width: 28px; height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      transition: background 0.15s;
+    }
+    .qty-btn:hover { background: var(--cream); }
+    .qty-val {
+      width: 32px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      height: 28px;
+      line-height: 28px;
+    }
+    .cart-item-price {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--maroon);
+    }
+    .cart-remove {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .cart-remove:hover { color: var(--maroon); }
+    .cart-footer {
+      padding: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+    }
+    .cart-grand {
+      display: flex;
+      justify-content: space-between;
+      margin: 16px 0;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .cart-grand span:first-child {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .cart-grand span:last-child {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--maroon);
+    }
+    .checkout-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--maroon);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: background 0.25s;
+    }
+    .checkout-btn:hover { background: var(--maroon-light); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text-dark);
+      color: #fff;
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      border-left: 3px solid var(--gold);
+      z-index: 3000;
+      opacity: 0;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ============================================================
+       BACK TO TOP
+    ============================================================ */
+    .back-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 44px; height: 44px;
+      background: var(--maroon);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      z-index: 500;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .back-top.show { opacity: 1; visibility: visible; }
+    .back-top:hover { background: var(--gold-dark); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+      .hero { height: 80vw; min-height: 340px; max-height: 520px; }
+      .hero-content { padding: 0 24px 40px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .banner-strip-inner { grid-template-columns: 1fr; }
+      .banner-half:first-child { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
+      .testi-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .hero-ctrl { right: 24px; }
+      .products-header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .product-info { padding: 10px; }
+      .product-name { font-size: 0.88rem; }
+    }
+
+    /* ============================================================
+       CHATBOT
+    ============================================================ */
+    .chat-fab {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 1600;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: var(--maroon);
+      box-shadow: 0 8px 24px rgba(44,24,16,0.4);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s; border: none;
+      animation: fabPop 0.5s cubic-bezier(0.34,1.56,0.64,1) 1s both;
+    }
+    @keyframes fabPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+    .chat-fab:hover { background: var(--text-dark); transform: scale(1.1); box-shadow: 0 12px 32px rgba(44,24,16,0.5); }
+    .chat-fab svg { width: 26px; height: 26px; fill: #fff; }
+    .chat-badge { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; background: #6BC47E; border-radius: 50%; border: 2px solid var(--warm-white); }
+    .chat-tooltip {
+      position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+      background: var(--text-dark); color: #fff;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.5px;
+      padding: 0.5rem 0.9rem; border-radius: 6px; white-space: nowrap;
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+      font-family: var(--font-body);
+    }
+    .chat-tooltip::after { content: ''; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-right: 0; border-left-color: var(--text-dark); }
+    .chat-fab:hover .chat-tooltip { opacity: 1; }
+
+    .chat-window {
+      position: fixed; bottom: 6.5rem; right: 2rem; z-index: 1601;
+      width: 340px; background: var(--warm-white); border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(44,24,16,0.25);
+      border: 1px solid var(--border); overflow: hidden;
+      transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      font-family: var(--font-body);
+    }
+    .chat-window.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+    .chat-head { background: var(--maroon); padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+    .chat-av { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #fff; }
+    .chat-head-info h4 { font-size: 0.88rem; font-weight: 600; color: #fff; margin: 0; font-family: var(--font-body); }
+    .chat-head-info p { font-size: 0.7rem; color: rgba(255,255,255,0.7); margin: 0; }
+    .chat-close { margin-left: auto; background: none; border: none; color: rgba(255,255,255,0.7); font-size: 1.1rem; cursor: pointer; }
+    .chat-body { padding: 1.2rem; height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.8rem; }
+    .chat-msg { max-width: 85%; font-size: 0.82rem; line-height: 1.5; padding: 0.6rem 0.9rem; border-radius: 12px; }
+    .chat-msg.bot { background: var(--cream); color: var(--text-dark); border-bottom-left-radius: 2px; border: 1px solid var(--border); }
+    .chat-msg.user { background: var(--maroon); color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+    .chat-footer { padding: 0.8rem 1rem; border-top: 1px solid var(--border); display: flex; gap: 0.5rem; }
+    .chat-input { flex: 1; background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 0.5rem 0.9rem; font-family: var(--font-body); font-size: 0.82rem; color: var(--text-dark); outline: none; }
+    .chat-send { background: var(--maroon); border: none; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; }
+    .chat-coming { font-size: 0.7rem; color: var(--text-light); text-align: center; padding: 0.5rem 1rem 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       ANNOUNCEMENT BAR
+  ============================================================ -->
+  <div class="announcement-bar">
+    Free shipping on orders above ₹1,499 &nbsp;|&nbsp;
+    Use code <span>SAROHANS10</span> for 10% off your first order
+  </div>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar-inner">
+
+      <!-- Logo -->
+      <a href="#" class="logo">Saroh<span>ans</span></a>
+
+      <!-- Desktop Nav Links -->
+      <ul class="nav-links">
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">New Arrivals</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Rajputana Saree <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <div class="dropdown">
+            <a href="#" onclick="filterProducts('Rajputana Saree');closeDropdowns()">All Rajputana Sarees</a>
+            <a href="#" onclick="filterProducts('Rajputana Saree')">Silk Sarees</a>
+            <a href="#" onclick="filterProducts('Rajputana Saree')">Leheriya Sarees</a>
+            <a href="#" onclick="filterProducts('Rajputana Saree')">Bandhej Sarees</a>
+            <a href="#" onclick="filterProducts('Rajputana Saree')">Printed Sarees</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Rajputana Poshak <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <div class="dropdown">
+            <a href="#" onclick="filterProducts('Rajputana Poshak')">All Poshaks</a>
+            <a href="#" onclick="filterProducts('Rajputana Poshak')">Ghaghra Choli</a>
+            <a href="#" onclick="filterProducts('Rajputana Poshak')">Odhni Sets</a>
+            <a href="#" onclick="filterProducts('Rajputana Poshak')">Designer Poshak</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Party Wear <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <div class="dropdown">
+            <a href="#" onclick="filterProducts('Party Wear')">All Party Wear</a>
+            <a href="#" onclick="filterProducts('Party Wear')">Embroidered Suits</a>
+            <a href="#" onclick="filterProducts('Party Wear')">Georgette Sarees</a>
+            <a href="#" onclick="filterProducts('Party Wear')">Lehengas</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Wedding Saree <i class="fa-solid fa-chevron-down"></i>
+          </a>
+          <div class="dropdown">
+            <a href="#" onclick="filterProducts('Wedding Saree')">All Wedding Sarees</a>
+            <a href="#" onclick="filterProducts('Wedding Saree')">Banarasi Weaves</a>
+            <a href="#" onclick="filterProducts('Wedding Saree')">Kanjeevaram</a>
+            <a href="#" onclick="filterProducts('Wedding Saree')">Zari Work</a>
+            <a href="#" onclick="filterProducts('Wedding Saree')">Bridal Collection</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">Offers</a>
+        </li>
+      </ul>
+
+      <!-- Nav Icons -->
+      <div class="nav-icons">
+        <button class="nav-icon-btn" title="Search" onclick="openSearch()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button class="nav-icon-btn" title="Wishlist">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <button class="nav-icon-btn" title="Cart" onclick="openCart()">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <!-- Hamburger (mobile) -->
+        <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MOBILE MENU
+  ============================================================ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMobileMenu()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <a href="#" class="mobile-nav-link">New Arrivals</a>
+    <a href="#" class="mobile-nav-link">Rajputana Saree</a>
+    <a href="#" class="mobile-sub" onclick="filterProducts('Rajputana Saree');toggleMobileMenu()">— All Rajputana Sarees</a>
+    <a href="#" class="mobile-sub" onclick="filterProducts('Rajputana Saree');toggleMobileMenu()">— Silk Sarees</a>
+    <a href="#" class="mobile-nav-link">Rajputana Poshak</a>
+    <a href="#" class="mobile-sub" onclick="filterProducts('Rajputana Poshak');toggleMobileMenu()">— All Poshaks</a>
+    <a href="#" class="mobile-sub" onclick="filterProducts('Rajputana Poshak');toggleMobileMenu()">— Ghaghra Choli</a>
+    <a href="#" class="mobile-nav-link">Party Wear</a>
+    <a href="#" class="mobile-sub" onclick="filterProducts('Party Wear');toggleMobileMenu()">— All Party Wear</a>
+    <a href="#" class="mobile-nav-link">Wedding Saree</a>
+    <a href="#" class="mobile-sub" onclick="filterProducts('Wedding Saree');toggleMobileMenu()">— All Wedding Sarees</a>
+    <a href="#" class="mobile-nav-link">Offers</a>
+  </div>
+
+  <!-- ============================================================
+       SEARCH OVERLAY
+  ============================================================ -->
+  <div class="search-overlay" id="searchOverlay" onclick="closeSearchIfOutside(event)">
+    <div class="search-box" id="searchBox">
+      <button class="search-close" onclick="closeSearch()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search for sarees, poshaks, wedding wear…"
+        oninput="doSearch(this.value)"
+      />
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       HERO CAROUSEL
+  ============================================================ -->
+  <section class="hero" id="hero">
+
+    <!-- Slide 1 -->
+    <div class="hero-slide active" id="slide0">
+      <img class="hero-bg" src="https://i.pinimg.com/736x/c4/8a/99/c48a99596ac597f1c7fd6dfbbb4d7c7b.jpg" alt="Royal Rajputana Saree Collection">
+      <div class="hero-content">
+        <div class="hero-badge">New Collection 2025</div>
+        <h1 class="hero-title">Royal Rajputana<br>Saree Collection</h1>
+        <p class="hero-sub">Drape yourself in the grandeur of Rajputana heritage. Each saree tells a story of timeless artisanship.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-primary" onclick="filterProducts('Rajputana Saree')">Shop Now</a>
+          <a href="#categories" class="btn-outline" style="color:#E8B96A;border-color:rgba(232,185,106,0.5)">Explore All</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="hero-slide" id="slide1">
+      <img class="hero-bg" src="https://i.pinimg.com/1200x/a4/c6/cc/a4c6cc1f4d6c1f959c64bbcc2d58b277.jpg" alt="Bridal Wedding Saree Dreams">
+      <div class="hero-content">
+        <div class="hero-badge">Exclusive Bridal</div>
+        <h1 class="hero-title">Bridal Wedding<br>Saree Dreams</h1>
+        <p class="hero-sub">Make your special day unforgettable with our exquisite Banarasi and Kanjeevaram wedding sarees.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-primary" onclick="filterProducts('Wedding Saree')">Shop Wedding</a>
+          <a href="#" class="btn-outline" style="color:#E8B96A;border-color:rgba(232,185,106,0.5)">View Lookbook</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="hero-slide" id="slide2">
+      <img class="hero-bg" src="https://i.pinimg.com/736x/ca/16/e6/ca16e6a615db7c65c0d036dfeaac0675.jpg" alt="Glamorous Party Wear">
+      <div class="hero-content">
+        <div class="hero-badge">Season's Best</div>
+        <h1 class="hero-title">Glamorous<br>Party Wear</h1>
+        <p class="hero-sub">Shine at every celebration with our curated collection of embroidered suits, lehengas and georgette drapes.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-primary" onclick="filterProducts('Party Wear')">Shop Party Wear</a>
+          <a href="#products" class="btn-outline" style="color:#E8B96A;border-color:rgba(232,185,106,0.5)">All Products</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <div class="hero-ctrl">
+      <button class="hero-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-btn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="hero-dots" id="heroDots">
+      <div class="hero-dot active" onclick="goSlide(0)"></div>
+      <div class="hero-dot" onclick="goSlide(1)"></div>
+      <div class="hero-dot" onclick="goSlide(2)"></div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       CATEGORY STRIP
+  ============================================================ -->
+  <section class="cat-strip" id="categories">
+    <div class="container">
+      <div class="cat-strip-head">
+        <p class="section-sub">Explore by Category</p>
+        <h2 class="section-title">Our Collections</h2>
+        <div class="divider" style="margin:16px auto 0;"></div>
+      </div>
+      <div class="cat-grid">
+
+        <!-- Category Card: SVG placeholder -->
+        <div class="cat-card" onclick="filterProducts('Rajputana Saree')">
+          <img src="https://i.pinimg.com/736x/d1/99/9f/d1999fae8b5017aaa42d6587e41e803a.jpg" alt="Rajputana Saree">
+          <div class="cat-label">
+            <span>Heritage</span>
+            <h3>Rajputana Saree</h3>
+            <button>Explore →</button>
+          </div>
+        </div>
+
+        <div class="cat-card" onclick="filterProducts('Rajputana Poshak')">
+          <img src="https://i.pinimg.com/736x/c4/8a/99/c48a99596ac597f1c7fd6dfbbb4d7c7b.jpg" alt="Rajputana Poshak">
+          <div class="cat-label">
+            <span>Traditional</span>
+            <h3>Rajputana Poshak</h3>
+            <button>Explore →</button>
+          </div>
+        </div>
+
+        <div class="cat-card" onclick="filterProducts('Party Wear')">
+          <img src="https://i.pinimg.com/736x/ca/16/e6/ca16e6a615db7c65c0d036dfeaac0675.jpg" alt="Party Wear">
+          <div class="cat-label">
+            <span>Celebrations</span>
+            <h3>Party Wear</h3>
+            <button>Explore →</button>
+          </div>
+        </div>
+
+        <div class="cat-card" onclick="filterProducts('Wedding Saree')">
+          <img src="https://i.pinimg.com/1200x/a4/c6/cc/a4c6cc1f4d6c1f959c64bbcc2d58b277.jpg" alt="Wedding Saree">
+          <div class="cat-label">
+            <span>Bridal</span>
+            <h3>Wedding Saree</h3>
+            <button>Explore →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRODUCTS SECTION
+  ============================================================ -->
+  <section class="products-section" id="products">
+    <div class="container">
+      <div class="products-header">
+        <div>
+          <p class="section-sub">Our Products</p>
+          <h2 class="section-title">Featured Collection</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-tab active" onclick="filterProducts('all', this)">All</button>
+          <button class="filter-tab" onclick="filterProducts('Rajputana Saree', this)">Rajputana Saree</button>
+          <button class="filter-tab" onclick="filterProducts('Rajputana Poshak', this)">Rajputana Poshak</button>
+          <button class="filter-tab" onclick="filterProducts('Party Wear', this)">Party Wear</button>
+          <button class="filter-tab" onclick="filterProducts('Wedding Saree', this)">Wedding Saree</button>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <!-- Products injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BANNER STRIP
+  ============================================================ -->
+  <section class="banner-strip">
+    <div class="container">
+      <div class="banner-strip-inner">
+        <div class="banner-half">
+          <p class="section-sub">Artisan Crafted</p>
+          <h2 class="section-title" style="color:#fff;font-size:clamp(1.6rem,3vw,2.4rem);">Woven with<br>Generations of Art</h2>
+          <p>Every thread in our collection carries the legacy of Rajasthani master weavers — handpicked, handwoven, and heart-made for the modern Indian woman.</p>
+          <a href="#products" class="btn-gold">Discover the Craft</a>
+        </div>
+        <div class="banner-half">
+          <p class="section-sub">Exclusive Offer</p>
+          <h2 class="section-title" style="color:#fff;font-size:clamp(1.6rem,3vw,2.4rem);">Bridal Package<br>Up to 30% Off</h2>
+          <p>Book your complete bridal trousseau with Sarohans and enjoy exclusive discounts, complimentary blouse stitching, and personalised styling consultation.</p>
+          <a href="#products" class="btn-gold">Shop Bridal</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS
+  ============================================================ -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="testimonials-head">
+        <p class="section-sub">Customer Stories</p>
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="testi-text">The Rajputana saree I ordered was absolutely stunning. The colours are vivid, the fabric drapes beautifully, and it arrived perfectly packed. I wore it to my sister's wedding and received so many compliments!</p>
+          <div class="testi-author">
+            <div class="testi-avatar">P</div>
+            <div>
+              <div class="testi-name">Priya Sharma</div>
+              <div class="testi-loc">Jaipur, Rajasthan</div>
+              <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">I ordered a wedding saree for my daughter's big day and it exceeded all expectations. The embroidery is exquisite and the silk is premium quality. Sarohans truly understands bridal elegance.</p>
+          <div class="testi-author">
+            <div class="testi-avatar">M</div>
+            <div>
+              <div class="testi-name">Meena Rathore</div>
+              <div class="testi-loc">Udaipur, Rajasthan</div>
+              <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-text">The Rajputana Poshak set I bought is a masterpiece! My mother said it reminded her of the outfits from our village's old fairs. Pure nostalgia combined with modern elegance. Will buy again!</p>
+          <div class="testi-author">
+            <div class="testi-avatar">S</div>
+            <div>
+              <div class="testi-name">Sunita Chouhan</div>
+              <div class="testi-loc">Jodhpur, Rajasthan</div>
+              <div class="testi-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container footer-top">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <span class="logo">Saroh<span>ans</span></span>
+        <p>Celebrating India's rich ethnic heritage through premium quality garments crafted by skilled artisans. From Rajputana Sarees to grand Wedding drapes — we dress you in culture.</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-pinterest-p"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="#">Rajputana Saree</a></li>
+          <li><a href="#">Rajputana Poshak</a></li>
+          <li><a href="#">Party Wear</a></li>
+          <li><a href="#">Wedding Saree</a></li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <!-- Help -->
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Track My Order</a></li>
+          <li><a href="#">Return & Exchange</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <!-- Contact + Newsletter -->
+      <div class="footer-col footer-contact">
+        <h4>Contact Us</h4>
+        <p><i class="fa-solid fa-location-dot"></i> Sarohans Emporium, MI Road, Jaipur, Rajasthan 302001</p>
+        <p><i class="fa-solid fa-phone"></i> +91 98765 43210</p>
+        <p><i class="fa-solid fa-envelope"></i> hello@sarohans.com</p>
+        <p><i class="fa-regular fa-clock"></i> Mon–Sat: 10am – 7pm</p>
+        <h4 style="margin-top:20px;">Newsletter</h4>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address"/>
+          <button>Subscribe</button>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2025 Sarohans Ethnic Wear. All rights reserved.</p>
+      <div class="footer-pay">
+        <span class="pay-icon">UPI</span>
+        <span class="pay-icon">Visa</span>
+        <span class="pay-icon">Mastercard</span>
+        <span class="pay-icon">Razorpay</span>
+      </div>
+      <div>
+        <a href="#">Privacy</a> &nbsp;·&nbsp;
+        <a href="#">Terms</a> &nbsp;·&nbsp;
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       CART SIDEBAR
+  ============================================================ -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-head">
+      <h2>Your Bag <span id="cartCount" style="font-size:0.9rem;color:var(--text-light);font-family:var(--font-body);font-weight:400;"></span></h2>
+      <button class="cart-close" onclick="closeCart()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <p>Your bag is empty.<br>Add some beautiful pieces!</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+      <div class="cart-total-row"><span>Shipping</span><span>Free above ₹1,499</span></div>
+      <div class="cart-grand">
+        <span>Grand Total</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Back to Top -->
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
+
+  <!-- ============================================================
+       CHATBOT
+  ============================================================ -->
+  <button class="chat-fab" onclick="toggleChat()" id="chatFab" aria-label="Chat with us">
+    <div class="chat-badge"></div>
+    <div class="chat-tooltip">Ask us anything</div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+    </svg>
+  </button>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-head">
+      <div class="chat-av">S</div>
+      <div class="chat-head-info">
+        <h4>Sarohans Assistant</h4>
+        <p>Usually replies in seconds</p>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot">Namaste! Welcome to Sarohans. How can I help you today?</div>
+      <div class="chat-msg bot">You can ask me about our sarees, poshaks, shipping, or custom orders!</div>
+    </div>
+    <div class="chat-footer">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()">➤</button>
+    </div>
+    <div class="chat-coming">⚡ Powered by Sarohans AI</div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ============================================================
+       PRODUCT DATA
+    ============================================================ */
+    const products = [
+      // Rajputana Saree
+      {
+        id: 1, name: 'Leheriya Silk Saree', category: 'Rajputana Saree',
+        price: 3499, originalPrice: 4999, badge: 'Bestseller',
+        color1: '#8B1A2A', color2: '#C8964A',
+        symbol: 'लह', desc: 'Wave-dyed Rajasthani art',
+        img: 'https://i.pinimg.com/736x/c4/8a/99/c48a99596ac597f1c7fd6dfbbb4d7c7b.jpg'
+      },
+      {
+        id: 2, name: 'Bandhej Georgette Saree', category: 'Rajputana Saree',
+        price: 2799, originalPrice: 3999, badge: 'Sale',
+        color1: '#1A2C5E', color2: '#8B1A2A',
+        symbol: 'बंध', desc: 'Tie-dye masterpiece',
+        img: 'https://i.pinimg.com/1200x/a4/c6/cc/a4c6cc1f4d6c1f959c64bbcc2d58b277.jpg'
+      },
+      {
+        id: 3, name: 'Printed Chanderi Saree', category: 'Rajputana Saree',
+        price: 1899, originalPrice: 2499, badge: null,
+        color1: '#1A3A2A', color2: '#6B4C1A',
+        symbol: 'छाप', desc: 'Handblock printed elegance',
+        img: 'https://i.pinimg.com/736x/ca/16/e6/ca16e6a615db7c65c0d036dfeaac0675.jpg'
+      },
+      {
+        id: 4, name: 'Gota Patti Work Saree', category: 'Rajputana Saree',
+        price: 4299, originalPrice: 5999, badge: 'New',
+        color1: '#5E2A1A', color2: '#C8964A',
+        symbol: 'गोटा', desc: 'Gota ribbon embellishment',
+        img: 'https://i.pinimg.com/736x/d1/99/9f/d1999fae8b5017aaa42d6587e41e803a.jpg'
+      },
+      // Rajputana Poshak
+      {
+        id: 5, name: 'Royal Ghaghra Choli Set', category: 'Rajputana Poshak',
+        price: 5499, originalPrice: 7499, badge: 'Premium',
+        color1: '#2A1A5E', color2: '#C8964A',
+        symbol: 'घाघ', desc: 'Full flared ghaghra set',
+        img: 'https://i.pinimg.com/736x/c4/8a/99/c48a99596ac597f1c7fd6dfbbb4d7c7b.jpg'
+      },
+      {
+        id: 6, name: 'Odhni Bandhej Poshak', category: 'Rajputana Poshak',
+        price: 3799, originalPrice: 4999, badge: 'Sale',
+        color1: '#1A5E2A', color2: '#8B1A2A',
+        symbol: 'ओधन', desc: 'With embroidered odhni',
+        img: 'https://i.pinimg.com/1200x/a4/c6/cc/a4c6cc1f4d6c1f959c64bbcc2d58b277.jpg'
+      },
+      {
+        id: 7, name: 'Designer Embroidered Poshak', category: 'Rajputana Poshak',
+        price: 6999, originalPrice: 9499, badge: 'Exclusive',
+        color1: '#3A1A1A', color2: '#C8964A',
+        symbol: 'कढ़ाई', desc: 'Mirror & thread work',
+        img: 'https://i.pinimg.com/736x/ca/16/e6/ca16e6a615db7c65c0d036dfeaac0675.jpg'
+      },
+      {
+        id: 8, name: 'Festive Cotton Poshak', category: 'Rajputana Poshak',
+        price: 2499, originalPrice: 3199, badge: null,
+        color1: '#1A3A5E', color2: '#5E3A1A',
+        symbol: 'उत्सव', desc: 'Lightweight festive wear',
+        img: 'https://i.pinimg.com/736x/d1/99/9f/d1999fae8b5017aaa42d6587e41e803a.jpg'
+      },
+      // Party Wear
+      {
+        id: 9, name: 'Embroidered Georgette Suit', category: 'Party Wear',
+        price: 3299, originalPrice: 4499, badge: 'Trending',
+        color1: '#2A1A3A', color2: '#C8964A',
+        symbol: 'पार्टी', desc: 'Sequin & bead work',
+        img: 'https://i.pinimg.com/736x/c4/8a/99/c48a99596ac597f1c7fd6dfbbb4d7c7b.jpg'
+      },
+      {
+        id: 10, name: 'Designer Lehenga Set', category: 'Party Wear',
+        price: 7499, originalPrice: 10999, badge: 'Bestseller',
+        color1: '#1A2A1A', color2: '#8B1A2A',
+        symbol: 'लहंगा', desc: 'Heavy embroidery lehenga',
+        img: 'https://i.pinimg.com/1200x/a4/c6/cc/a4c6cc1f4d6c1f959c64bbcc2d58b277.jpg'
+      },
+      {
+        id: 11, name: 'Shimmer Georgette Saree', category: 'Party Wear',
+        price: 2199, originalPrice: 2999, badge: 'Sale',
+        color1: '#1A1A2A', color2: '#6B6B1A',
+        symbol: 'शिमर', desc: 'Party-ready shimmer drape',
+        img: 'https://i.pinimg.com/736x/ca/16/e6/ca16e6a615db7c65c0d036dfeaac0675.jpg'
+      },
+      {
+        id: 12, name: 'Net Embroidered Suit', category: 'Party Wear',
+        price: 4199, originalPrice: 5499, badge: null,
+        color1: '#2A1A2A', color2: '#C8964A',
+        symbol: 'नेट', desc: 'Layered net with lining',
+        img: 'https://i.pinimg.com/736x/d1/99/9f/d1999fae8b5017aaa42d6587e41e803a.jpg'
+      },
+      // Wedding Saree
+      {
+        id: 13, name: 'Banarasi Pure Silk Saree', category: 'Wedding Saree',
+        price: 12999, originalPrice: 17999, badge: 'Premium',
+        color1: '#5E1A2A', color2: '#C8964A',
+        symbol: 'बनारस', desc: 'Handwoven zari work',
+        img: 'https://i.pinimg.com/736x/c4/8a/99/c48a99596ac597f1c7fd6dfbbb4d7c7b.jpg'
+      },
+      {
+        id: 14, name: 'Kanjeevaram Bridal Saree', category: 'Wedding Saree',
+        price: 15499, originalPrice: 21999, badge: 'Exclusive',
+        color1: '#1A1A5E', color2: '#8B1A2A',
+        symbol: 'कांची', desc: 'South silk masterwork',
+        img: 'https://i.pinimg.com/1200x/a4/c6/cc/a4c6cc1f4d6c1f959c64bbcc2d58b277.jpg'
+      },
+      {
+        id: 15, name: 'Zari & Cutwork Saree', category: 'Wedding Saree',
+        price: 8999, originalPrice: 12499, badge: 'New',
+        color1: '#3A1A5E', color2: '#C8964A',
+        symbol: 'ज़री', desc: 'Pure gold zari weaving',
+        img: 'https://i.pinimg.com/736x/ca/16/e6/ca16e6a615db7c65c0d036dfeaac0675.jpg'
+      },
+      {
+        id: 16, name: 'Bridal Red Silk Saree', category: 'Wedding Saree',
+        price: 11499, originalPrice: 15999, badge: 'Bestseller',
+        color1: '#6B1A1A', color2: '#C8964A',
+        symbol: 'लाल', desc: 'Auspicious bridal red',
+        img: 'https://i.pinimg.com/736x/d1/99/9f/d1999fae8b5017aaa42d6587e41e803a.jpg'
+      },
+    ];
+
+    /* ============================================================
+       CART STATE
+    ============================================================ */
+    let cart = [];
+
+    function getCart() { return cart; }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+      updateCartUI();
+      showToast(`"${product.name}" added to bag`);
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      updateCartUI();
+      renderCartItems();
+    }
+
+    function changeQty(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) removeFromCart(productId);
+      else { updateCartUI(); renderCartItems(); }
+    }
+
+    function updateCartUI() {
+      const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+      const badge = document.getElementById('cartBadge');
+      badge.textContent = totalQty;
+      badge.classList.toggle('visible', totalQty > 0);
+      document.getElementById('cartCount').textContent = totalQty > 0 ? `(${totalQty} item${totalQty > 1 ? 's' : ''})` : '';
+    }
+
+    function renderCartItems() {
+      const container = document.getElementById('cartItems');
+      const footer = document.getElementById('cartFooter');
+
+      if (cart.length === 0) {
+        container.innerHTML = `<div class="cart-empty"><i class="fa-solid fa-bag-shopping"></i><p>Your bag is empty.<br>Add some beautiful pieces!</p></div>`;
+        footer.style.display = 'none';
+        return;
+      }
+
+      footer.style.display = 'block';
+
+      let html = '';
+      let subtotal = 0;
+      cart.forEach(item => {
+        subtotal += item.price * item.qty;
+        html += `
+          <div class="cart-item">
+            <svg class="cart-item-img" viewBox="0 0 70 90" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="cig${item.id}" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="${item.color1}"/>
+                  <stop offset="100%" stop-color="${item.color2}"/>
+                </linearGradient>
+              </defs>
+              <rect width="70" height="90" fill="url(#cig${item.id})"/>
+              <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="16" fill="rgba(255,255,255,0.4)" font-family="Georgia">${item.symbol}</text>
+            </svg>
+            <div class="cart-item-info">
+              <div class="cart-item-cat">${item.category}</div>
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-row">
+                <div class="qty-ctrl">
+                  <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+                  <div class="qty-val">${item.qty}</div>
+                  <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                </div>
+                <div class="cart-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
+              </div>
+              <button class="cart-remove" onclick="removeFromCart(${item.id})">
+                <i class="fa-regular fa-trash-can"></i> Remove
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+
+      const shipping = subtotal >= 1499 ? 0 : 99;
+      const total = subtotal + shipping;
+      document.getElementById('cartSubtotal').textContent = '₹' + subtotal.toLocaleString('en-IN');
+      document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString('en-IN');
+    }
+
+    /* ============================================================
+       PRODUCT RENDERING
+    ============================================================ */
+    function renderProducts(filter = 'all') {
+      const grid = document.getElementById('productGrid');
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-light);padding:40px;">No products found.</p>';
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const disc = Math.round((1 - p.price / p.originalPrice) * 100);
+        const inCart = cart.some(i => i.id === p.id);
+        return `
+          <div class="product-card" id="pc${p.id}">
+            <div class="product-img-wrap">
+              <img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;position:absolute;top:0;left:0;object-fit:cover;">
+              ${p.badge ? `<span class="product-badge ${p.badge === 'Sale' ? 'sale' : ''}">${p.badge}</span>` : ''}
+              <button class="product-wish" onclick="toggleWish(this)" title="Wishlist"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="product-info">
+              <div class="product-cat">${p.category}</div>
+              <div class="product-name">${p.name}</div>
+              <div class="product-price">
+                <span class="price-now">₹${p.price.toLocaleString('en-IN')}</span>
+                <span class="price-old">₹${p.originalPrice.toLocaleString('en-IN')}</span>
+                <span class="price-disc">${disc}% OFF</span>
+              </div>
+              <button
+                class="add-to-cart-btn ${inCart ? 'added' : ''}"
+                id="atcBtn${p.id}"
+                onclick="handleAddToCart(${p.id})"
+              >${inCart ? '✓ Added to Bag' : 'Add to Bag'}</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleAddToCart(id) {
+      addToCart(id);
+      const btn = document.getElementById(`atcBtn${id}`);
+      if (btn) {
+        btn.classList.add('added');
+        btn.textContent = '✓ Added to Bag';
+      }
+      renderCartItems();
+    }
+
+    function toggleWish(btn) {
+      btn.classList.toggle('liked');
+      const icon = btn.querySelector('i');
+      if (btn.classList.contains('liked')) {
+        icon.className = 'fa-solid fa-heart';
+        showToast('Added to Wishlist');
+      } else {
+        icon.className = 'fa-regular fa-heart';
+      }
+    }
+
+    /* Filter products */
+    function filterProducts(category, tabEl) {
+      // Scroll to products
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Update active tab
+      if (tabEl) {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tabEl.classList.add('active');
+      } else {
+        // Called from nav dropdown or category card
+        const tabs = document.querySelectorAll('.filter-tab');
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          if (t.textContent.trim() === category) t.classList.add('active');
+        });
+      }
+
+      renderProducts(category);
+      return false;
+    }
+
+    /* ============================================================
+       SEARCH
+    ============================================================ */
+    function openSearch() {
+      document.getElementById('searchOverlay').classList.add('open');
+      setTimeout(() => document.getElementById('searchInput').focus(), 100);
+    }
+    function closeSearch() {
+      document.getElementById('searchOverlay').classList.remove('open');
+      document.getElementById('searchInput').value = '';
+      document.getElementById('searchResults').innerHTML = '';
+    }
+    function closeSearchIfOutside(e) {
+      if (e.target === document.getElementById('searchOverlay')) closeSearch();
+    }
+    function doSearch(query) {
+      const container = document.getElementById('searchResults');
+      if (!query.trim()) { container.innerHTML = ''; return; }
+      const results = products.filter(p =>
+        p.name.toLowerCase().includes(query.toLowerCase()) ||
+        p.category.toLowerCase().includes(query.toLowerCase())
+      );
+      if (results.length === 0) {
+        container.innerHTML = '<p style="padding:16px;color:var(--text-light);font-size:0.82rem;">No results found.</p>';
+        return;
+      }
+      container.innerHTML = results.slice(0, 6).map(p => `
+        <div class="search-result-item" onclick="filterProducts('${p.category}');closeSearch();">
+          <svg class="search-result-img" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="srg${p.id}" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="${p.color1}"/>
+                <stop offset="100%" stop-color="${p.color2}"/>
+              </linearGradient>
+            </defs>
+            <rect width="44" height="56" fill="url(#srg${p.id})"/>
+            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="14" fill="rgba(255,255,255,0.5)" font-family="Georgia">${p.symbol}</text>
+          </svg>
+          <div class="search-result-info">
+            <strong>${p.name}</strong>
+            <span>₹${p.price.toLocaleString('en-IN')} · ${p.category}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ============================================================
+       CART OPEN/CLOSE
+    ============================================================ */
+    function openCart() {
+      renderCartItems();
+      document.getElementById('cartOverlay').classList.add('open');
+      document.getElementById('cartSidebar').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      document.getElementById('cartOverlay').classList.remove('open');
+      document.getElementById('cartSidebar').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ============================================================
+       MOBILE MENU
+    ============================================================ */
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const ham = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      ham.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+    function closeDropdowns() {}
+
+    /* ============================================================
+       HERO CAROUSEL
+    ============================================================ */
+    let currentSlide = 0;
+    const totalSlides = 3;
+    let autoSlideInterval;
+
+    function goSlide(n) {
+      document.getElementById('slide' + currentSlide).classList.remove('active');
+      document.querySelectorAll('.hero-dot')[currentSlide].classList.remove('active');
+      currentSlide = (n + totalSlides) % totalSlides;
+      document.getElementById('slide' + currentSlide).classList.add('active');
+      document.querySelectorAll('.hero-dot')[currentSlide].classList.add('active');
+    }
+    function moveSlide(dir) {
+      goSlide(currentSlide + dir);
+      resetAutoSlide();
+    }
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => goSlide(currentSlide + 1), 5000);
+    }
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    let toastTimer;
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    }
+
+    /* ============================================================
+       BACK TO TOP
+    ============================================================ */
+    window.addEventListener('scroll', () => {
+      document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+    });
+
+    /* ============================================================
+       KEYBOARD CLOSE
+    ============================================================ */
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeSearch();
+        closeCart();
+      }
+    });
+
+    /* ============================================================
+       INIT
+    ============================================================ */
+    renderProducts('all');
+    startAutoSlide();
+
+    /* ============================================================
+       CHATBOT LOGIC
+    ============================================================ */
+    function toggleChat() {
+      document.getElementById('chatWindow').classList.toggle('open');
+    }
+    function sendChat() {
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      const body = document.getElementById('chatBody');
+      const userDiv = document.createElement('div');
+      userDiv.className = 'chat-msg user';
+      userDiv.textContent = msg;
+      body.appendChild(userDiv);
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+      fetch('/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg })
+      })
+      .then(response => response.json())
+      .then(data => addBotMsg(data.reply))
+      .catch(error => addBotMsg("⚠️ Cannot connect to server. Is python running?"));
+    }
+    function addBotMsg(text) {
+      const body = document.getElementById('chatBody');
+      const botDiv = document.createElement('div');
+      botDiv.className = 'chat-msg bot';
+      botDiv.textContent = text;
+      body.appendChild(botDiv);
+      body.scrollTop = body.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>

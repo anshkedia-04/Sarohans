@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarohans — Quiet Luxury</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Tenor+Sans&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #fefefe;
+  --paper: #f9f7f4;
+  --paper2: #f3f0eb;
+  --paper3: #ede9e2;
+  --ink: #1a1a1a;
+  --ink2: #2e2e2e;
+  --ink3: #4a4a4a;
+  --ink-faint: rgba(26,26,26,0.12);
+  --ink-light: rgba(26,26,26,0.45);
+  --terracotta: #c17a5a;
+  --terracotta-pale: #f0e4dc;
+  --sage: #7a8c6e;
+  --sage-pale: #eaede6;
+  --rose: #b5807a;
+  --line: rgba(26,26,26,0.1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CURSOR — minimal dot */
+#c { position: fixed; width: 7px; height: 7px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: difference; transition: transform .15s; }
+#cr { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(26,26,26,.3); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all .3s ease; }
+.c-expand { transform: translate(-50%,-50%) scale(0) !important; }
+.cr-expand { transform: translate(-50%,-50%) scale(2.5) !important; border-color: var(--terracotta) !important; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 3.5rem; height: 68px;
+  background: rgba(254,254,254,.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  transition: border-color .4s;
+}
+nav.lifted { border-bottom-color: transparent; box-shadow: 0 1px 20px rgba(26,26,26,.06); }
+.nav-left { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-left a { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ink3); text-decoration: none; transition: color .3s; font-weight: 400; }
+.nav-left a:hover { color: var(--ink); }
+.nav-logo-wrap { text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.nav-logo-main { font-family: 'EB Garamond', serif; font-size: 1.5rem; font-weight: 500; color: var(--ink); letter-spacing: .3em; line-height: 1; }
+.nav-logo-sub { font-size: .45rem; letter-spacing: .55em; color: var(--ink-light); text-transform: uppercase; font-weight: 300; }
+.nav-right { display: flex; gap: 1.5rem; align-items: center; justify-content: flex-end; }
+.nav-right button, .nav-right a { background: none; border: none; font-size: .9rem; color: var(--ink3); cursor: none; text-decoration: none; transition: color .3s; font-family: 'Montserrat', sans-serif; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+.nav-right button:hover, .nav-right a:hover { color: var(--terracotta); }
+
+/* HERO */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 68px;
+  position: relative;
+}
+.hero-left {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 6rem 5rem 5rem 5rem;
+  position: relative;
+}
+.hero-left::after {
+  content: '';
+  position: absolute; right: 0; top: 15%; bottom: 15%;
+  width: 1px; background: var(--line);
+}
+.hero-num {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: .85rem; color: var(--terracotta);
+  letter-spacing: .2em; margin-bottom: 3rem;
+  opacity: 0; animation: aFadeUp .7s .2s forwards;
+}
+.hero-h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(3.2rem, 5.5vw, 6rem);
+  font-weight: 400; line-height: 1.06;
+  color: var(--ink); margin-bottom: 3rem;
+  opacity: 0; animation: aFadeUp .9s .4s forwards;
+}
+.hero-h1 em { font-style: italic; color: var(--terracotta); }
+.hero-h1 .thin { font-weight: 400; color: var(--ink3); }
+.hero-rule {
+  width: 40px; height: 1px; background: var(--terracotta);
+  margin-bottom: 2rem;
+  opacity: 0; animation: aWidth 1s .7s forwards;
+}
+@keyframes aWidth { from { width: 0; } to { width: 40px; } }
+.hero-p {
+  font-size: .83rem; font-weight: 300; line-height: 2;
+  color: var(--ink-light); max-width: 340px; margin-bottom: 3.5rem;
+  opacity: 0; animation: aFadeUp .8s .8s forwards;
+}
+.hero-btns {
+  display: flex; gap: 1.5rem; align-items: center;
+  opacity: 0; animation: aFadeUp .7s 1s forwards;
+}
+.btn-min {
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  font-weight: 400; color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--ink); padding-bottom: .2rem;
+  transition: color .3s, border-color .3s; cursor: none;
+}
+.btn-min:hover { color: var(--terracotta); border-color: var(--terracotta); }
+.btn-filled {
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  font-weight: 400; color: var(--white); text-decoration: none;
+  background: var(--ink); padding: .85rem 2rem; cursor: none;
+  transition: background .3s;
+}
+.btn-filled:hover { background: var(--terracotta); }
+.hero-footnote {
+  position: absolute; bottom: 3rem; left: 5rem;
+  display: flex; align-items: center; gap: 1.2rem;
+  font-size: .58rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--ink-light);
+  opacity: 0; animation: aFadeUp .7s 1.3s forwards;
+}
+.hero-footnote::before { content: ''; width: 28px; height: 1px; background: var(--ink-light); }
+
+.hero-right {
+  position: relative; overflow: hidden;
+  background: var(--paper2);
+}
+.hero-right img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.92) saturate(.85);
+  transform: scale(1.04);
+  animation: aHeroScale 1.2s .1s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes aHeroScale { to { transform: scale(1); } }
+.hero-right-label {
+  position: absolute; bottom: 3rem; right: 2.5rem;
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: .8rem; color: rgba(254,254,254,.7);
+  letter-spacing: .15em; writing-mode: vertical-rl;
+  opacity: 0; animation: aFadeUp .7s 1.4s forwards;
+}
+.hero-right-count {
+  position: absolute; top: 2.5rem; right: 2.5rem;
+  display: flex; flex-direction: column; align-items: flex-end; gap: .3rem;
+}
+.hero-count-num {
+  font-family: 'EB Garamond', serif; font-size: 3rem;
+  font-weight: 400; color: rgba(254,254,254,.15); line-height: 1;
+}
+.hero-count-label { font-size: .55rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(254,254,254,.4); }
+
+/* INTRO STRIP */
+.intro-strip {
+  background: var(--paper);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 2rem 0; overflow: hidden;
+}
+.intro-strip-inner {
+  display: flex; animation: aScroll 35s linear infinite; white-space: nowrap;
+}
+.intro-strip-item {
+  display: inline-flex; align-items: center; gap: 2.5rem; padding: 0 2.5rem;
+  font-family: 'EB Garamond', serif; font-style: italic; font-size: .95rem;
+  color: var(--ink3); letter-spacing: .05em;
+}
+.intro-strip-dot { width: 3px; height: 3px; background: var(--terracotta); border-radius: 50%; }
+@keyframes aScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* SECTION ARCHITECTURE */
+.s-wrap { max-width: 1360px; margin: 0 auto; }
+.s-eyebrow {
+  font-size: .6rem; letter-spacing: .4em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 1rem; display: block;
+}
+.s-h2 {
+  font-family: 'EB Garamond', serif; font-weight: 400;
+  font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1.1;
+  color: var(--ink);
+}
+.s-h2 em { font-style: italic; color: var(--terracotta); }
+.s-h2 .light { color: var(--ink3); }
+.s-rule { width: 32px; height: 1px; background: var(--ink-faint); margin-top: 1.5rem; }
+
+/* COLLECTIONS */
+#collections { padding: 8rem 3.5rem; background: var(--white); }
+.coll-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5px; height: 700px;
+}
+.cc { position: relative; overflow: hidden; cursor: none; }
+.cc:nth-child(2) { grid-row: span 2; }
+.cc img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.82) saturate(.75);
+  transition: transform .9s cubic-bezier(.16,1,.3,1), filter .6s;
+}
+.cc:hover img { transform: scale(1.05); filter: brightness(.7) saturate(.9); }
+.cc-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,.6) 0%, transparent 50%); }
+.cc-inner { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.8rem 2rem; }
+.cc-tag { font-size: .55rem; letter-spacing: .35em; text-transform: uppercase; color: rgba(249,247,244,.5); margin-bottom: .4rem; }
+.cc-name { font-family: 'EB Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--paper); line-height: 1.1; }
+.cc:nth-child(2) .cc-name { font-size: 2.5rem; }
+.cc-link {
+  display: inline-flex; align-items: center; gap: .5rem; margin-top: .6rem;
+  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(249,247,244,.7); text-decoration: none;
+  opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s;
+}
+.cc:hover .cc-link { opacity: 1; transform: translateY(0); }
+.coll-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; }
+.coll-header-note { font-size: .8rem; font-weight: 300; color: var(--ink-light); max-width: 260px; line-height: 1.8; text-align: right; }
+
+/* PRODUCTS */
+#featured { padding: 8rem 3.5rem; background: var(--paper); }
+.feat-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+.feat-all { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink3); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: .3rem; transition: color .3s, border-color .3s; }
+.feat-all:hover { color: var(--terracotta); border-color: var(--terracotta); }
+.products-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 2.5rem; }
+.pc { cursor: none; }
+.pc-img { aspect-ratio: 2/3; overflow: hidden; position: relative; background: var(--paper2); margin-bottom: 1.2rem; }
+.pc-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.9) saturate(.8); transition: transform .8s cubic-bezier(.16,1,.3,1), filter .5s; }
+.pc:hover .pc-img img { transform: scale(1.05); filter: brightness(.85) saturate(1); }
+.pc-badge {
+  position: absolute; top: .8rem; left: .8rem;
+  font-size: .5rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--white); background: var(--terracotta);
+  padding: .25rem .7rem; font-weight: 400;
+}
+.pc-wish {
+  position: absolute; top: .8rem; right: .8rem;
+  width: 32px; height: 32px; background: rgba(254,254,254,.9);
+  border: none; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .8rem; color: var(--ink3); cursor: none;
+  opacity: 0; transition: opacity .3s;
+}
+.pc:hover .pc-wish { opacity: 1; }
+.pc-wish:hover { background: var(--terracotta); color: var(--white); }
+.pc-hover-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(26,26,26,.88); backdrop-filter: blur(4px);
+  padding: .9rem 1rem; display: flex; gap: 1px;
+  transform: translateY(100%); transition: transform .4s cubic-bezier(.16,1,.3,1);
+}
+.pc:hover .pc-hover-bar { transform: translateY(0); }
+.pc-hbtn {
+  flex: 1; background: none; border: none; color: rgba(254,254,254,.8);
+  font-size: .58rem; letter-spacing: .15em; text-transform: uppercase;
+  cursor: none; font-family: 'Montserrat', sans-serif;
+  transition: color .2s, background .2s; padding: .4rem;
+}
+.pc-hbtn:hover { color: var(--white); background: var(--terracotta); }
+.pc-type { font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .4rem; }
+.pc-name { font-family: 'EB Garamond', serif; font-size: 1.05rem; color: var(--ink); margin-bottom: .5rem; }
+.pc-price { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--ink2); }
+.pc-price s { font-size: .85rem; color: var(--ink-light); margin-left: .5rem; }
+
+/* RAJPUTI */
+#rajputi { background: var(--white); }
+.raj-grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 85vh; }
+.raj-img { position: relative; overflow: hidden; background: var(--paper2); }
+.raj-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.88) saturate(.8); }
+.raj-img-caption {
+  position: absolute; bottom: 2.5rem; left: 2.5rem;
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: .8rem; color: rgba(254,254,254,.5); letter-spacing: .15em;
+}
+.raj-text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 6rem 5.5rem 6rem 5rem;
+  border-left: 1px solid var(--line);
+}
+.raj-overline { font-size: .58rem; letter-spacing: .45em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 2.5rem; }
+.raj-h { font-family: 'EB Garamond', serif; font-size: clamp(2.5rem,4vw,4rem); font-weight: 400; line-height: 1.05; color: var(--ink); margin-bottom: 1.5rem; }
+.raj-h em { font-style: italic; color: var(--terracotta); }
+.raj-pull {
+  font-family: 'EB Garamond', serif; font-style: italic;
+  font-size: 1.1rem; line-height: 1.7; color: var(--ink3);
+  border-left: 2px solid var(--terracotta-pale); padding-left: 1.5rem;
+  margin-bottom: 2rem;
+}
+.raj-body { font-size: .82rem; font-weight: 300; line-height: 1.95; color: var(--ink-light); max-width: 380px; margin-bottom: 2.5rem; }
+.raj-feats { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; margin-bottom: 3rem; }
+.raj-feat { font-size: .72rem; color: var(--ink3); display: flex; align-items: center; gap: .7rem; }
+.raj-feat::before { content: ''; width: 16px; height: 1px; background: var(--terracotta); flex-shrink: 0; }
+
+/* CRAFTS */
+#crafts { padding: 8rem 3.5rem; background: var(--paper); }
+.crafts-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5rem; }
+.crafts-intro { font-size: .82rem; font-weight: 300; line-height: 1.9; color: var(--ink-light); max-width: 320px; }
+.crafts-list { display: grid; grid-template-columns: repeat(5,1fr); gap: 1px; }
+.crf { position: relative; cursor: none; overflow: hidden; }
+.crf-img { aspect-ratio: .65; overflow: hidden; position: relative; }
+.crf-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.75) saturate(.7); transition: transform .8s cubic-bezier(.16,1,.3,1), filter .5s; }
+.crf:hover .crf-img img { transform: scale(1.07); filter: brightness(.6) saturate(1); }
+.crf-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,.8) 0%, transparent 55%); }
+.crf-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; }
+.crf-n { font-family: 'EB Garamond', serif; font-size: 1.25rem; color: var(--paper); writing-mode: vertical-rl; transform: rotate(180deg); transition: all .45s; }
+.crf:hover .crf-n { writing-mode: horizontal-tb; transform: none; font-size: 1.5rem; }
+.crf-d { font-size: .72rem; color: rgba(249,247,244,.65); line-height: 1.6; max-height: 0; overflow: hidden; transition: max-height .45s, margin .3s; }
+.crf:hover .crf-d { max-height: 80px; margin-top: .5rem; }
+.crf-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--terracotta); transform: scaleX(0); transform-origin: left; transition: transform .4s ease; }
+.crf:hover .crf-bar { transform: scaleX(1); }
+
+/* OCCASIONS */
+#occasions { padding: 8rem 3.5rem; background: var(--white); }
+.occ-layout { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+.oc { position: relative; overflow: hidden; cursor: none; aspect-ratio: .8; }
+.oc img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.8) saturate(.7); transition: transform .8s cubic-bezier(.16,1,.3,1), filter .5s; }
+.oc:hover img { transform: scale(1.05); filter: brightness(.7) saturate(.9); }
+.oc-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,26,26,.75) 0%, transparent 55%); }
+.oc-inner { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.8rem 2rem; }
+.oc-sub { font-size: .55rem; letter-spacing: .35em; text-transform: uppercase; color: rgba(193,122,90,.8); margin-bottom: .4rem; }
+.oc-name { font-family: 'EB Garamond', serif; font-size: 1.7rem; color: var(--paper); line-height: 1.1; margin-bottom: .3rem; }
+.oc-count { font-size: .62rem; letter-spacing: .12em; color: rgba(249,247,244,.45); }
+.oc-line { position: absolute; bottom: 0; left: 2rem; right: 2rem; height: 1px; background: var(--terracotta); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.oc:hover .oc-line { transform: scaleX(1); }
+.occ-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; }
+
+/* SHOP THE LOOK */
+#shop-look { padding: 8rem 3.5rem; background: var(--paper); }
+.look-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.look-img-col { position: relative; }
+.look-img-main { width: 100%; aspect-ratio: .75; object-fit: cover; filter: brightness(.88) saturate(.8); display: block; }
+.look-aside {
+  position: absolute; bottom: -2rem; right: -2rem;
+  width: 180px; aspect-ratio: .9;
+  object-fit: cover; filter: brightness(.88);
+  border: 5px solid var(--white);
+  box-shadow: 0 10px 40px rgba(26,26,26,.12);
+}
+.look-pin {
+  position: absolute; width: 22px; height: 22px;
+  background: var(--white); border-radius: 50%;
+  border: 1px solid var(--ink-faint);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .55rem; font-weight: 500; color: var(--terracotta);
+  cursor: none; box-shadow: 0 2px 12px rgba(26,26,26,.15);
+  animation: pinPulse 3s ease infinite;
+}
+@keyframes pinPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(193,122,90,.3); } 60% { box-shadow: 0 0 0 8px transparent; } }
+.lp1 { top: 18%; left: 32%; }
+.lp2 { top: 46%; left: 54%; }
+.lp3 { top: 73%; left: 28%; }
+.look-text-col { padding-top: 1rem; }
+.look-items-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2.5rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--line); }
+.look-items-title { font-family: 'EB Garamond', serif; font-size: 1.6rem; color: var(--ink); }
+.look-items-sub { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--terracotta); }
+.look-row { display: flex; gap: 1.2rem; align-items: center; padding: 1.2rem 0; border-bottom: 1px solid var(--line); transition: background .2s; cursor: none; }
+.look-row:hover { background: var(--paper2); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+.lk-num { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.2rem; color: var(--ink-faint); width: 1.5rem; flex-shrink: 0; }
+.lk-img { width: 55px; height: 72px; object-fit: cover; flex-shrink: 0; filter: brightness(.88); }
+.lk-info { flex: 1; }
+.lk-label { font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: var(--terracotta); margin-bottom: .3rem; }
+.lk-name { font-family: 'EB Garamond', serif; font-size: .95rem; color: var(--ink); margin-bottom: .15rem; }
+.lk-price { font-size: .75rem; color: var(--ink-light); }
+.lk-add { width: 28px; height: 28px; border: 1px solid var(--line); background: none; color: var(--ink3); font-size: 1rem; cursor: none; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+.lk-add:hover { background: var(--terracotta); border-color: var(--terracotta); color: var(--white); }
+.look-bundle-row { margin-top: 2rem; background: var(--ink); padding: 1.4rem 1.6rem; display: flex; align-items: center; justify-content: space-between; cursor: none; transition: background .3s; }
+.look-bundle-row:hover { background: var(--terracotta); }
+.lb-text { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(254,254,254,.6); }
+.lb-save { font-size: .68rem; color: rgba(254,254,254,.4); margin-top: .2rem; }
+.lb-price { font-family: 'EB Garamond', serif; font-size: 1.5rem; color: var(--white); }
+
+/* SERVICES */
+#services { background: var(--paper3); padding: 5rem 3.5rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.svc-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+.svc-item { padding: 2.5rem 2.5rem; border-right: 1px solid var(--line); cursor: none; transition: background .3s; }
+.svc-item:last-child { border-right: none; }
+.svc-item:hover { background: var(--paper2); }
+.svc-icon { font-size: 1.4rem; margin-bottom: 1.2rem; display: block; opacity: .7; }
+.svc-name { font-family: 'EB Garamond', serif; font-size: .95rem; color: var(--ink); margin-bottom: .5rem; }
+.svc-desc { font-size: .72rem; font-weight: 300; color: var(--ink-light); line-height: 1.7; }
+
+/* BRIDAL */
+#bridal { background: var(--white); }
+.bridal-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh; }
+.bridal-img { position: relative; overflow: hidden; }
+.bridal-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.8) saturate(.75); }
+.bridal-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--white)); }
+.bridal-text {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 7rem 5.5rem 7rem 5rem;
+  border-left: 1px solid var(--line);
+}
+.bridal-kicker { font-size: .58rem; letter-spacing: .45em; text-transform: uppercase; color: var(--terracotta); display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+.bridal-kicker::before { content: ''; width: 24px; height: 1px; background: var(--terracotta); }
+.bridal-h { font-family: 'EB Garamond', serif; font-size: clamp(2.5rem,4vw,4rem); font-weight: 400; color: var(--ink); line-height: 1.05; margin-bottom: 1rem; }
+.bridal-h em { font-style: italic; color: var(--terracotta); }
+.bridal-body { font-size: .82rem; font-weight: 300; line-height: 1.95; color: var(--ink-light); max-width: 380px; margin-bottom: 3rem; }
+.bridal-services { display: flex; flex-direction: column; gap: 0; margin-bottom: 3rem; }
+.bs { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.5rem 0; border-bottom: 1px solid var(--line); cursor: none; transition: padding-left .3s; }
+.bs:first-child { border-top: 1px solid var(--line); }
+.bs:hover { padding-left: .5rem; }
+.bs-num { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1.5rem; color: rgba(193,122,90,.25); line-height: 1; flex-shrink: 0; width: 2rem; }
+.bs-info {}
+.bs-title { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--ink); margin-bottom: .3rem; }
+.bs-desc { font-size: .72rem; font-weight: 300; color: var(--ink-light); line-height: 1.7; }
+
+/* TESTIMONIALS */
+#testimonials { padding: 8rem 3.5rem; background: var(--paper); }
+.tst-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start; }
+.tst-left { position: sticky; top: 8rem; }
+.tst-left-note { font-size: .78rem; font-weight: 300; line-height: 1.9; color: var(--ink-light); margin-top: 2rem; max-width: 240px; }
+.tst-rating { display: flex; align-items: center; gap: .8rem; margin-top: 2rem; }
+.tst-stars { color: var(--terracotta); font-size: .8rem; letter-spacing: .05rem; }
+.tst-rating-text { font-size: .72rem; color: var(--ink3); }
+.tst-right { display: flex; flex-direction: column; gap: 2px; }
+.tc { background: var(--white); padding: 2.5rem; border-left: 2px solid transparent; transition: border-color .3s; cursor: none; }
+.tc:hover { border-left-color: var(--terracotta); }
+.tc-stars { font-size: .68rem; color: var(--terracotta); letter-spacing: .05rem; margin-bottom: 1.2rem; }
+.tc-text { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; line-height: 1.8; color: var(--ink2); margin-bottom: 1.5rem; }
+.tc-author { display: flex; align-items: center; gap: 1rem; }
+.tc-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; filter: brightness(.88) saturate(.7); }
+.tc-name { font-size: .78rem; font-weight: 500; color: var(--ink); }
+.tc-city { font-size: .65rem; color: var(--terracotta); letter-spacing: .1em; }
+
+/* UGC */
+#ugc { background: var(--white); }
+.ugc-head { padding: 5rem 3.5rem 2.5rem; display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid var(--line); }
+.ugc-handle { font-family: 'EB Garamond', serif; font-style: italic; font-size: 1rem; color: var(--ink3); }
+.ugc-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 1.5px; }
+.ug { aspect-ratio: 1; overflow: hidden; position: relative; cursor: none; }
+.ug img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.85) saturate(.7); transition: filter .5s, transform .7s; }
+.ug:hover img { filter: brightness(.75) saturate(1); transform: scale(1.04); }
+.ug-ov { position: absolute; inset: 0; background: rgba(193,122,90,.12); opacity: 0; display: flex; align-items: center; justify-content: center; transition: opacity .3s; border: 1px solid rgba(193,122,90,0); }
+.ug:hover .ug-ov { opacity: 1; border-color: rgba(193,122,90,.25); }
+.ug-ic { font-size: 1.2rem; opacity: .8; }
+
+/* NEWSLETTER */
+#newsletter { padding: 8rem 3.5rem; background: var(--paper3); border-top: 1px solid var(--line); }
+.nl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.nl-left .s-h2 { margin-bottom: 1.5rem; }
+.nl-left p { font-size: .82rem; font-weight: 300; line-height: 1.9; color: var(--ink-light); max-width: 340px; }
+.nl-form { display: flex; flex-direction: column; gap: 1rem; }
+.nl-label { font-size: .58rem; letter-spacing: .35em; text-transform: uppercase; color: var(--terracotta); }
+.nl-row { display: flex; }
+.nl-input { flex: 1; background: var(--white); border: 1px solid var(--line); border-right: none; padding: .9rem 1.3rem; font-family: 'Montserrat', sans-serif; font-size: .8rem; color: var(--ink); outline: none; transition: border-color .3s; }
+.nl-input::placeholder { color: rgba(26,26,26,.3); }
+.nl-input:focus { border-color: var(--terracotta); }
+.nl-btn { background: var(--ink); border: 1px solid var(--ink); color: var(--white); padding: .9rem 1.8rem; font-family: 'Montserrat', sans-serif; font-size: .62rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; cursor: none; transition: background .3s; }
+.nl-btn:hover { background: var(--terracotta); border-color: var(--terracotta); }
+.nl-footnote { font-size: .65rem; color: var(--ink-light); }
+
+/* FOOTER */
+footer { background: var(--ink); color: rgba(249,247,244,.55); padding: 5rem 3.5rem 2.5rem; }
+.ft { max-width: 1360px; margin: 0 auto; }
+.ft-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(249,247,244,.08); margin-bottom: 2.5rem; }
+.ft-logo { font-family: 'EB Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--paper); letter-spacing: .25em; display: block; margin-bottom: .5rem; }
+.ft-logo em { font-style: italic; color: var(--terracotta); }
+.ft-tagline { font-size: .5rem; letter-spacing: .4em; text-transform: uppercase; color: rgba(193,122,90,.6); margin-bottom: 1.5rem; }
+.ft-desc { font-size: .75rem; line-height: 1.9; margin-bottom: 2rem; max-width: 280px; }
+.ft-soc { display: flex; gap: .6rem; }
+.ft-soc a { width: 32px; height: 32px; border: 1px solid rgba(249,247,244,.1); display: flex; align-items: center; justify-content: center; font-size: .72rem; color: rgba(249,247,244,.4); text-decoration: none; cursor: none; transition: all .3s; }
+.ft-soc a:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.ft-col-h { font-size: .58rem; letter-spacing: .35em; text-transform: uppercase; color: rgba(249,247,244,.4); margin-bottom: 1.8rem; }
+.ft-links { list-style: none; }
+.ft-links li { margin-bottom: .75rem; }
+.ft-links a { font-size: .75rem; color: rgba(249,247,244,.45); text-decoration: none; cursor: none; transition: color .2s; }
+.ft-links a:hover { color: var(--terracotta); }
+.ft-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.ft-copy { font-size: .65rem; color: rgba(249,247,244,.2); }
+.ft-pay { display: flex; gap: .4rem; }
+.ft-pay span { border: 1px solid rgba(249,247,244,.1); padding: .2rem .6rem; font-size: .55rem; letter-spacing: .1em; color: rgba(249,247,244,.25); text-transform: uppercase; }
+
+/* WA */
+.wa-btn {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 900;
+  width: 48px; height: 48px; background: #25d366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,.3); cursor: none; text-decoration: none;
+  transition: transform .3s, box-shadow .3s;
+  animation: waFloat 4s ease infinite;
+}
+.wa-btn:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,.45); }
+@keyframes waFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* REVEAL */
+.r { opacity: 0; transform: translateY(36px); transition: opacity .85s ease, transform .85s ease; }
+.r.v { opacity: 1; transform: none; }
+.rl { opacity: 0; transform: translateX(-36px); transition: opacity .85s ease, transform .85s ease; }
+.rl.v { opacity: 1; transform: none; }
+.rr { opacity: 0; transform: translateX(36px); transition: opacity .85s ease, transform .85s ease; }
+.rr.v { opacity: 1; transform: none; }
+
+@keyframes aFadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+@keyframes aFadeIn { from { opacity:0; } to { opacity:1; } }
+
+/* RESPONSIVE */
+@media (max-width:1100px) {
+  .products-row { grid-template-columns: repeat(2,1fr); }
+  .tst-layout { grid-template-columns: 1fr; }
+  .tst-left { position: static; }
+  .nl-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .ft-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .ugc-row { grid-template-columns: repeat(3,1fr); }
+}
+@media (max-width:900px) {
+  nav { grid-template-columns: 1fr auto; padding: 0 1.5rem; }
+  .nav-left { display: none; }
+  #hero { grid-template-columns: 1fr; padding-top: 68px; }
+  .hero-right { height: 55vw; }
+  .hero-left { padding: 4rem 2rem 3rem; }
+  .hero-left::after { display: none; }
+  .raj-grid, .bridal-layout { grid-template-columns: 1fr; }
+  .raj-img, .bridal-img { height: 50vw; }
+  .raj-text, .bridal-text { padding: 3.5rem 2rem; border-left: none; border-top: 1px solid var(--line); }
+  .look-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .look-aside { display: none; }
+  .coll-layout { grid-template-columns: 1fr 1fr; grid-template-rows: auto; height: auto; }
+  .cc:nth-child(2) { grid-row: span 1; height: 380px; grid-column: span 2; }
+  .cc { height: 260px; }
+  .occ-layout { grid-template-columns: repeat(2,1fr); }
+  .crafts-list { grid-template-columns: repeat(2,1fr); }
+  .svc-grid { grid-template-columns: repeat(2,1fr); }
+  #collections, #featured, #occasions, #crafts, #shop-look, #testimonials, #bridal, #ugc, #newsletter, #services { padding: 4rem 1.5rem; }
+  .coll-header, .feat-top, .occ-header, .crafts-top, .ugc-head { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+  .coll-header-note { text-align: left; }
+  .ft-top { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width:600px) {
+  .coll-layout { grid-template-columns: 1fr; }
+  .cc:nth-child(2) { grid-column: span 1; height: 320px; }
+  .products-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .crafts-list { grid-template-columns: 1fr; }
+  .ugc-row { grid-template-columns: repeat(2,1fr); }
+  .occ-layout { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="c"></div>
+<div id="cr"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <ul class="nav-left">
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#rajputi">Rajputi</a></li>
+    <li><a href="#occasions">Occasions</a></li>
+    <li><a href="#crafts">Fabrics</a></li>
+  </ul>
+  <a href="#" class="nav-logo-wrap">
+    <div class="nav-logo-main">SAROHANS</div>
+    <div class="nav-logo-sub">Quiet Luxury · Est. 2024</div>
+  </a>
+  <div class="nav-right">
+    <button>Search</button>
+    <button>Wishlist</button>
+    <a href="#bridal">Bridal</a>
+    <button>Cart</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-num">001 — New Collection</div>
+    <h1 class="hero-h1">
+      The<br>
+      <em>Quiet</em><br>
+      <span class="thin">Luxury</span><br>
+      of Craft
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-p">Exquisite Rajputi Sarees and Poshaks crafted with generational artisanship. Each piece tells a story of India's royal heritage — reimagined for the modern woman.</p>
+    <div class="hero-btns">
+      <a href="#collections" class="btn-filled">Explore Collections</a>
+      <a href="#rajputi" class="btn-min">Rajputi Edit</a>
+    </div>
+    <div class="hero-footnote">Handcrafted in Rajasthan Since 2024</div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=900&auto=format&fit=crop&q=80" alt="Sarohans">
+    <div class="hero-right-label">Rajputi Collection</div>
+    <div class="hero-right-count">
+      <div class="hero-count-num">01</div>
+      <div class="hero-count-label">Collection</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <div class="intro-strip-inner">
+    <div class="intro-strip-item"><span>Rajputi Saree</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Handcrafted Poshak</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Bridal Couture</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Pure Silk</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Bandhani</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Party Wear Saree</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Custom Stitching</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Free Shipping</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Rajputi Saree</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Handcrafted Poshak</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Bridal Couture</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Pure Silk</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Bandhani</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Party Wear Saree</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Custom Stitching</span><span class="intro-strip-dot"></span></div>
+    <div class="intro-strip-item"><span>Free Shipping</span><span class="intro-strip-dot"></span></div>
+  </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="s-wrap">
+    <div class="coll-header r">
+      <div>
+        <span class="s-eyebrow">Our Collections</span>
+        <h2 class="s-h2">Curated for the<br><em>Discerning Woman</em></h2>
+      </div>
+      <div class="coll-header-note">Four distinct collections — each a love letter to Rajasthan's timeless textile tradition.</div>
+    </div>
+    <div class="coll-layout r">
+      <div class="cc">
+        <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=600&auto=format&fit=crop&q=80" alt="Rajputi Saree">
+        <div class="cc-overlay"></div>
+        <div class="cc-inner">
+          <div class="cc-tag">02 — Signature</div>
+          <div class="cc-name">Rajputi<br>Saree</div>
+          <a href="#" class="cc-link">Explore →</a>
+        </div>
+      </div>
+      <div class="cc">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80" alt="Rajputi Poshak">
+        <div class="cc-overlay"></div>
+        <div class="cc-inner">
+          <div class="cc-tag">01 — Featured</div>
+          <div class="cc-name">Rajputi<br>Poshak</div>
+          <a href="#" class="cc-link">Explore →</a>
+        </div>
+      </div>
+      <div class="cc">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&auto=format&fit=crop&q=80" alt="Party Wear">
+        <div class="cc-overlay"></div>
+        <div class="cc-inner">
+          <div class="cc-tag">03 — New</div>
+          <div class="cc-name">Party<br>Wear</div>
+          <a href="#" class="cc-link">Explore →</a>
+        </div>
+      </div>
+      <div class="cc">
+        <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&auto=format&fit=crop&q=80" alt="Ethnic Wear">
+        <div class="cc-overlay"></div>
+        <div class="cc-inner">
+          <div class="cc-tag">04 — Premium</div>
+          <div class="cc-name">Ethnic<br>Wear</div>
+          <a href="#" class="cc-link">Explore →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section id="featured">
+  <div class="s-wrap">
+    <div class="feat-top r">
+      <div>
+        <span class="s-eyebrow">New Arrivals</span>
+        <h2 class="s-h2">Handpicked <em>For You</em></h2>
+      </div>
+      <a href="#" class="feat-all">View All →</a>
+    </div>
+    <div class="products-row">
+      <div class="pc r">
+        <div class="pc-img">
+          <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="pc-badge">Handcrafted</div>
+          <button class="pc-wish">♡</button>
+          <div class="pc-hover-bar">
+            <button class="pc-hbtn">Quick View</button>
+            <button class="pc-hbtn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="pc-type">Rajputi Saree</div>
+        <div class="pc-name">Gulabi Anarkali Saree</div>
+        <div class="pc-price">₹8,500 <s>₹11,000</s></div>
+      </div>
+      <div class="pc r" style="transition-delay:.1s">
+        <div class="pc-img">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="pc-badge">Bestseller</div>
+          <button class="pc-wish">♡</button>
+          <div class="pc-hover-bar">
+            <button class="pc-hbtn">Quick View</button>
+            <button class="pc-hbtn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="pc-type">Rajputi Poshak</div>
+        <div class="pc-name">Royal Zari Poshak</div>
+        <div class="pc-price">₹24,000 <s>₹30,000</s></div>
+      </div>
+      <div class="pc r" style="transition-delay:.2s">
+        <div class="pc-img">
+          <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&auto=format&fit=crop&q=80" alt="">
+          <button class="pc-wish">♡</button>
+          <div class="pc-hover-bar">
+            <button class="pc-hbtn">Quick View</button>
+            <button class="pc-hbtn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="pc-type">Party Wear Saree</div>
+        <div class="pc-name">Champagne Georgette Saree</div>
+        <div class="pc-price">₹6,200</div>
+      </div>
+      <div class="pc r" style="transition-delay:.3s">
+        <div class="pc-img">
+          <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="pc-badge">Pre-order</div>
+          <button class="pc-wish">♡</button>
+          <div class="pc-hover-bar">
+            <button class="pc-hbtn">Quick View</button>
+            <button class="pc-hbtn">Pre-Order</button>
+          </div>
+        </div>
+        <div class="pc-type">Premium Ethnic</div>
+        <div class="pc-name">Ivory Silk Lehenga Set</div>
+        <div class="pc-price">₹18,500</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAJPUTI -->
+<section id="rajputi">
+  <div class="raj-grid">
+    <div class="raj-img rl">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=900&auto=format&fit=crop&q=80" alt="Rajputi">
+      <div class="raj-img-caption">The Rajputi Edit, 2025</div>
+    </div>
+    <div class="raj-text rr">
+      <div class="raj-overline">Dedicated Section — Rajputi Heritage</div>
+      <h2 class="raj-h">The Art of<br><em>Rajputi Grace</em></h2>
+      <div class="raj-pull">"Each thread carries the memory of a thousand royal courts, woven into a garment worthy of a queen."</div>
+      <p class="raj-body">Our dedicated Rajputi Collection celebrates the timeless elegance of Rajasthan's royal courts. Each saree and poshak is crafted by master artisans using centuries-old techniques — Zari, Gota Patti, and intricate Zardosi embroidery.</p>
+      <div class="raj-feats">
+        <div class="raj-feat">Authentic Rajasthani Craft</div>
+        <div class="raj-feat">Premium Silk Fabrics</div>
+        <div class="raj-feat">Gota Patti Embroidery</div>
+        <div class="raj-feat">Custom Stitching</div>
+        <div class="raj-feat">Zardosi Detailing</div>
+        <div class="raj-feat">360° Drape Preview</div>
+      </div>
+      <a href="#" class="btn-filled">View Rajputi Collection</a>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFTS -->
+<section id="crafts">
+  <div class="s-wrap">
+    <div class="crafts-top r">
+      <div>
+        <span class="s-eyebrow">Craft & Fabric</span>
+        <h2 class="s-h2">Shop by <em>Weave & Art</em></h2>
+      </div>
+      <p class="crafts-intro">Every fabric tells a story. Explore India's most exquisite textile traditions, from the tie-dye mastery of Bandhani to the regal shimmer of pure silk.</p>
+    </div>
+    <div class="crafts-list r">
+      <div class="crf">
+        <div class="crf-img">
+          <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&auto=format&fit=crop&q=80" alt="Bandhani">
+          <div class="crf-overlay"></div>
+          <div class="crf-info">
+            <div class="crf-n">Bandhani</div>
+            <div class="crf-d">Ancient tie-dye craft from Rajasthan. Each piece is unique, formed by thousands of tiny bindings.</div>
+          </div>
+          <div class="crf-bar"></div>
+        </div>
+      </div>
+      <div class="crf">
+        <div class="crf-img">
+          <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=400&auto=format&fit=crop&q=80" alt="Silk">
+          <div class="crf-overlay"></div>
+          <div class="crf-info">
+            <div class="crf-n">Pure Silk</div>
+            <div class="crf-d">Lustrous Kanjivaram and Banarasi silk woven with gold zari for timeless regal elegance.</div>
+          </div>
+          <div class="crf-bar"></div>
+        </div>
+      </div>
+      <div class="crf">
+        <div class="crf-img">
+          <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80" alt="Georgette">
+          <div class="crf-overlay"></div>
+          <div class="crf-info">
+            <div class="crf-n">Georgette</div>
+            <div class="crf-d">Light and flowy, perfect for evening occasions with a graceful, flattering drape.</div>
+          </div>
+          <div class="crf-bar"></div>
+        </div>
+      </div>
+      <div class="crf">
+        <div class="crf-img">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&auto=format&fit=crop&q=80" alt="Gota Patti">
+          <div class="crf-overlay"></div>
+          <div class="crf-info">
+            <div class="crf-n">Gota Patti</div>
+            <div class="crf-d">Royal Rajasthani embroidery. Golden ribbons applied to create stunning geometric patterns.</div>
+          </div>
+          <div class="crf-bar"></div>
+        </div>
+      </div>
+      <div class="crf">
+        <div class="crf-img">
+          <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&auto=format&fit=crop&q=80" alt="Handloom">
+          <div class="crf-overlay"></div>
+          <div class="crf-info">
+            <div class="crf-n">Handloom</div>
+            <div class="crf-d">Sustainably woven on traditional looms, preserving India's irreplaceable textile heritage.</div>
+          </div>
+          <div class="crf-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<section id="occasions">
+  <div class="s-wrap">
+    <div class="occ-header r">
+      <div>
+        <span class="s-eyebrow">Dress for Every Moment</span>
+        <h2 class="s-h2">Shop by <em>Occasion</em></h2>
+      </div>
+    </div>
+    <div class="occ-layout r">
+      <div class="oc">
+        <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=80" alt="Wedding">
+        <div class="oc-ov"></div>
+        <div class="oc-inner">
+          <div class="oc-sub">Wedding Season</div>
+          <div class="oc-name">Wedding</div>
+          <div class="oc-count">142+ Styles</div>
+        </div>
+        <div class="oc-line"></div>
+      </div>
+      <div class="oc">
+        <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=500&auto=format&fit=crop&q=80" alt="Festive">
+        <div class="oc-ov"></div>
+        <div class="oc-inner">
+          <div class="oc-sub">Festivals</div>
+          <div class="oc-name">Festive</div>
+          <div class="oc-count">98+ Styles</div>
+        </div>
+        <div class="oc-line"></div>
+      </div>
+      <div class="oc">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=500&auto=format&fit=crop&q=80" alt="Party">
+        <div class="oc-ov"></div>
+        <div class="oc-inner">
+          <div class="oc-sub">Evenings</div>
+          <div class="oc-name">Party Wear</div>
+          <div class="oc-count">76+ Styles</div>
+        </div>
+        <div class="oc-line"></div>
+      </div>
+      <div class="oc">
+        <img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=500&auto=format&fit=crop&q=80" alt="Daily">
+        <div class="oc-ov"></div>
+        <div class="oc-inner">
+          <div class="oc-sub">Everyday</div>
+          <div class="oc-name">Daily Grace</div>
+          <div class="oc-count">54+ Styles</div>
+        </div>
+        <div class="oc-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP THE LOOK -->
+<section id="shop-look">
+  <div class="s-wrap">
+    <div class="look-grid">
+      <div class="look-img-col rl">
+        <img class="look-img-main" src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=700&auto=format&fit=crop&q=80" alt="">
+        <img class="look-aside" src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&auto=format&fit=crop&q=80" alt="">
+        <div class="look-pin lp1">1</div>
+        <div class="look-pin lp2">2</div>
+        <div class="look-pin lp3">3</div>
+      </div>
+      <div class="rr">
+        <div class="look-items-head">
+          <div class="look-items-title">Shop the Look</div>
+          <div class="look-items-sub">Complete Ensemble</div>
+        </div>
+        <div>
+          <div class="look-row">
+            <div class="lk-num">1</div>
+            <img class="lk-img" src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=200&auto=format&fit=crop&q=80" alt="">
+            <div class="lk-info">
+              <div class="lk-label">Rajputi Saree</div>
+              <div class="lk-name">Crimson Rajputi Saree</div>
+              <div class="lk-price">₹12,500 · 6 yards · Pure Silk</div>
+            </div>
+            <button class="lk-add">+</button>
+          </div>
+          <div class="look-row">
+            <div class="lk-num">2</div>
+            <img class="lk-img" src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=200&auto=format&fit=crop&q=80" alt="">
+            <div class="lk-info">
+              <div class="lk-label">Blouse</div>
+              <div class="lk-name">Embroidered Silk Blouse</div>
+              <div class="lk-price">₹3,200 · Custom Stitched</div>
+            </div>
+            <button class="lk-add">+</button>
+          </div>
+          <div class="look-row">
+            <div class="lk-num">3</div>
+            <img class="lk-img" src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=200&auto=format&fit=crop&q=80" alt="">
+            <div class="lk-info">
+              <div class="lk-label">Jewellery</div>
+              <div class="lk-name">Kundan Necklace Set</div>
+              <div class="lk-price">₹4,800 · Polki Statement</div>
+            </div>
+            <button class="lk-add">+</button>
+          </div>
+        </div>
+        <div class="look-bundle-row">
+          <div>
+            <div class="lb-text">Complete Look · Save ₹2,500</div>
+            <div class="lb-save">Bundle price applied at checkout</div>
+          </div>
+          <div class="lb-price">₹17,900</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="s-wrap">
+    <div class="svc-grid">
+      <div class="svc-item">
+        <span class="svc-icon">🔍</span>
+        <div class="svc-name">Fabric Zoom View</div>
+        <div class="svc-desc">Ultra-HD texture inspection on every product page</div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-icon">📏</span>
+        <div class="svc-name">Custom Stitching</div>
+        <div class="svc-desc">Enter your exact measurements for a perfectly tailored fit</div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-icon">✈️</span>
+        <div class="svc-name">Free Shipping</div>
+        <div class="svc-desc">Pan India delivery free on orders above ₹2,999</div>
+      </div>
+      <div class="svc-item">
+        <span class="svc-icon">🔄</span>
+        <div class="svc-name">Easy Returns</div>
+        <div class="svc-desc">7-day hassle-free return & exchange policy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDAL -->
+<section id="bridal">
+  <div class="bridal-layout">
+    <div class="bridal-img rl">
+      <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=900&auto=format&fit=crop&q=80" alt="Bridal">
+    </div>
+    <div class="bridal-text rr">
+      <div class="bridal-kicker">Bridal Services</div>
+      <h2 class="bridal-h">Your Dream<br><em>Bridal Look</em></h2>
+      <p class="bridal-body">Our dedicated bridal team helps you craft the perfect look for every wedding ceremony — from the intimate Mehendi to the grand Vidai. Book a private consultation today.</p>
+      <div class="bridal-services">
+        <div class="bs">
+          <div class="bs-num">1</div>
+          <div class="bs-info">
+            <div class="bs-title">Private Consultation</div>
+            <div class="bs-desc">One-on-one session with our bridal stylist to curate your complete wedding trousseau</div>
+          </div>
+        </div>
+        <div class="bs">
+          <div class="bs-num">2</div>
+          <div class="bs-info">
+            <div class="bs-title">Bridal Mood Board</div>
+            <div class="bs-desc">Save and organize your dream looks in a personalized digital lookbook</div>
+          </div>
+        </div>
+        <div class="bs">
+          <div class="bs-num">3</div>
+          <div class="bs-info">
+            <div class="bs-title">Custom Couture</div>
+            <div class="bs-desc">Bespoke Rajputi Poshak crafted exclusively for your special day</div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="btn-filled">Book Bridal Consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="s-wrap">
+    <div class="tst-layout">
+      <div class="tst-left r">
+        <span class="s-eyebrow">Love Stories</span>
+        <h2 class="s-h2">From Our<br><em>Customers</em></h2>
+        <p class="tst-left-note">What our customers say means everything to us. Each review is a testament to the artisanship woven into every piece.</p>
+        <div class="tst-rating">
+          <span class="tst-stars">★★★★★</span>
+          <span class="tst-rating-text">4.9 · 2,400+ reviews</span>
+        </div>
+      </div>
+      <div class="tst-right r">
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p class="tc-text">"The Rajputi Saree I ordered for my sister's wedding was absolutely breathtaking. The Gota Patti work was flawless and the silk quality exceeded every expectation I had."</p>
+          <div class="tc-author">
+            <img class="tc-img" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100&auto=format&fit=crop&q=80" alt="">
+            <div>
+              <div class="tc-name">Priya Sharma</div>
+              <div class="tc-city">Jaipur</div>
+            </div>
+          </div>
+        </div>
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p class="tc-text">"Ordered a custom Poshak with specific measurements. The stitching was absolutely perfect and it was delivered before time. Sarohans is now my go-to for every special occasion."</p>
+          <div class="tc-author">
+            <img class="tc-img" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&auto=format&fit=crop&q=80" alt="">
+            <div>
+              <div class="tc-name">Aarti Rathore</div>
+              <div class="tc-city">Udaipur</div>
+            </div>
+          </div>
+        </div>
+        <div class="tc">
+          <div class="tc-stars">★★★★★</div>
+          <p class="tc-text">"The bridal consultation was a truly personal and luxurious experience. They understood my vision perfectly and created something I will cherish forever."</p>
+          <div class="tc-author">
+            <img class="tc-img" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=80" alt="">
+            <div>
+              <div class="tc-name">Meenakshi Joshi</div>
+              <div class="tc-city">Delhi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UGC -->
+<section id="ugc">
+  <div class="ugc-head r">
+    <div>
+      <span class="s-eyebrow">Community</span>
+      <h2 class="s-h2">As Seen on <em>Instagram</em></h2>
+    </div>
+    <div class="ugc-handle">@sarohans</div>
+  </div>
+  <div class="ugc-row">
+    <div class="ug"><img src="https://images.unsplash.com/photo-1610189352649-3e00a29d7b2c?w=400&auto=format&fit=crop&q=80" alt=""><div class="ug-ov"><div class="ug-ic">📷</div></div></div>
+    <div class="ug"><img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&auto=format&fit=crop&q=80" alt=""><div class="ug-ov"><div class="ug-ic">📷</div></div></div>
+    <div class="ug"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&auto=format&fit=crop&q=80" alt=""><div class="ug-ov"><div class="ug-ic">📷</div></div></div>
+    <div class="ug"><img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&auto=format&fit=crop&q=80" alt=""><div class="ug-ov"><div class="ug-ic">📷</div></div></div>
+    <div class="ug"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&auto=format&fit=crop&q=80" alt=""><div class="ug-ov"><div class="ug-ic">📷</div></div></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="s-wrap">
+    <div class="nl-grid">
+      <div class="nl-left r">
+        <span class="s-eyebrow">Stay in the Loop</span>
+        <h2 class="s-h2">First Look at<br>New <em>Collections</em></h2>
+        <p style="font-size:.82rem;font-weight:300;line-height:1.9;color:var(--ink-light);max-width:340px;margin-top:1.5rem">Join 12,000+ women who get early access to new arrivals, exclusive offers & styling tips from the heart of Rajasthan.</p>
+      </div>
+      <div class="r" style="transition-delay:.15s">
+        <form class="nl-form" onsubmit="return false">
+          <label class="nl-label">Your Email Address</label>
+          <div class="nl-row">
+            <input class="nl-input" type="email" placeholder="name@example.com">
+            <button class="nl-btn">Subscribe</button>
+          </div>
+          <div class="nl-footnote">No spam. Unsubscribe anytime. We respect your privacy.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div class="ft-top">
+      <div>
+        <span class="ft-logo">SARO<em>HANS</em></span>
+        <div class="ft-tagline">Quiet Luxury · Rajasthan · Est. 2024</div>
+        <p class="ft-desc">A premium ethnic wear brand rooted in Rajasthani heritage. We celebrate the artistry of India's master craftsmen through every saree and poshak we create.</p>
+        <div class="ft-soc">
+          <a href="#">f</a><a href="#">in</a><a href="#">yt</a><a href="#">tw</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-col-h">Collections</div>
+        <ul class="ft-links">
+          <li><a href="#">Rajputi Saree</a></li>
+          <li><a href="#">Rajputi Poshak</a></li>
+          <li><a href="#">Party Wear Saree</a></li>
+          <li><a href="#">Premium Ethnic</a></li>
+          <li><a href="#">Bridal Collection</a></li>
+          <li><a href="#">New Arrivals</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Customer Care</div>
+        <ul class="ft-links">
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Custom Stitching</a></li>
+          <li><a href="#">Fabric Guide</a></li>
+          <li><a href="#">Wash & Care</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Returns</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-col-h">Contact</div>
+        <ul class="ft-links">
+          <li><a href="#">WhatsApp Us</a></li>
+          <li><a href="#">Book Consultation</a></li>
+          <li><a href="#">hello@sarohans.com</a></li>
+          <li><a href="#">+91 98765 43210</a></li>
+        </ul>
+        <div style="margin-top:2rem">
+          <div style="font-size:.55rem;letter-spacing:.3em;color:rgba(193,122,90,.5);text-transform:uppercase;margin-bottom:.8rem">Secure Payments</div>
+          <div class="ft-pay">
+            <span>Razorpay</span><span>UPI</span><span>COD</span><span>Card</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <div class="ft-copy">© 2025 Sarohans. All rights reserved. Made with ♥ in India.</div>
+      <div style="display:flex;gap:2rem">
+        <a href="#" style="font-size:.65rem;color:rgba(249,247,244,.2);text-decoration:none;cursor:none">Privacy Policy</a>
+        <a href="#" style="font-size:.65rem;color:rgba(249,247,244,.2);text-decoration:none;cursor:none">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WA -->
+<a href="https://wa.me/919876543210" class="wa-btn" target="_blank">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.565 4.143 1.55 5.878L0 24l6.302-1.55C8.04 23.43 9.985 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.892 0-3.668-.515-5.188-1.41l-.372-.22-3.741.919.962-3.621-.241-.383C2.546 15.73 2 13.933 2 12 2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+// Cursor
+const c = document.getElementById('c');
+const cr = document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; c.style.left=mx+'px'; c.style.top=my+'px'; });
+(function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; cr.style.left=rx+'px'; cr.style.top=ry+'px'; requestAnimationFrame(loop); })();
+document.querySelectorAll('a,button,.pc,.cc,.oc,.crf,.bs').forEach(el => {
+  el.addEventListener('mouseenter', () => { c.classList.add('c-expand'); cr.classList.add('cr-expand'); });
+  el.addEventListener('mouseleave', () => { c.classList.remove('c-expand'); cr.classList.remove('cr-expand'); });
+});
+
+// Nav
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('lifted', scrollY > 40));
+
+// Reveal
+const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), { threshold: 0.08 });
+document.querySelectorAll('.r,.rl,.rr').forEach(el => obs.observe(el));
+
+// Parallax hero
+window.addEventListener('scroll', () => {
+  const img = document.querySelector('.hero-right img');
+  if(img) img.style.transform = `scale(1.04) translateY(${scrollY*.1}px)`;
+});
+</script>
+</body>
+</html>
